@@ -3,6 +3,8 @@
 // font family
 //-------------------------------------------
 $font-family: var(--font-inter-variant);
+$font-size: 14px;
+$font-size-small: 12px;
 
 //-------------------------------------------
 // Color
@@ -14,6 +16,13 @@ $cRed: #c51618;
 $cWarning: #f7a40c;
 $cPrimary: var(--color-primary);
 $cScrollbar: var(--color-scrollbar);
+
+// Density variables text field
+$transition-duration: 0.2s;
+$disabled-color: rgba(0, 0, 0, 0.38);
+$height-default: 56px;
+$height-comfortable: 48px;
+$height-compact: 40px;
 
 //-------------------------------------------
 // Background Color
@@ -160,7 +169,6 @@ input:-webkit-autofill:active {
       color: rgb(var(--v-theme-warning)) !important;
     }
   }
-
   margin-bottom: 1rem;
 }
 

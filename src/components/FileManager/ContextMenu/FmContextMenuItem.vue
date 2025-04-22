@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
-  import { IContextMenu } from '@/interfaces/IAction';
+  import { IActionFM } from '@/interfaces';
 
   interface IProps {
-    listMenus: IContextMenu[];
-    onClickItem: (menuItem: IContextMenu) => void;
+    listMenus: IActionFM[];
+    onClickItem: (menuItem: IActionFM) => void;
   }
 
   const props = defineProps<IProps>();

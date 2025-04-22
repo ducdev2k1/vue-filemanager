@@ -1,14 +1,14 @@
 <script setup lang="ts">
-  import { IContextMenu } from '@/interfaces/IAction';
+  import { IActionFM } from '@/interfaces';
 
   defineOptions({
     inheritAttrs: false,
   });
 
   interface IProps {
-    items: IContextMenu[];
+    items: IActionFM[];
     positionContextMenu: { x: number; y: number };
-    onClickItem?: (menuItem: IContextMenu) => void;
+    onClickItem?: (menuItem: IActionFM) => void;
   }
 
   const props = defineProps<IProps>();
@@ -35,7 +35,7 @@
     return 0;
   });
 
-  const handleClickItem = (menuItem: IContextMenu) => {
+  const handleClickItem = (menuItem: IActionFM) => {
     if (props.onClickItem) {
       props.onClickItem(menuItem);
     }

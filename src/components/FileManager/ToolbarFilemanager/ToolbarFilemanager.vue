@@ -36,12 +36,12 @@
     <div class="c-file-manager_toolbar_group group_right">
       <div class="c-file-manager_toolbar_group_block left">
         <template v-for="action in actionToolbar" :key="action.key">
-          <BtnBaseIcon :icon="action.icon as string" @click="onClick(action)" :disabled="action.disabled" />
+          <DBtnIcon :icon="action.icon as string" @click="onClick(action)" :disabled="action.disabled" />
         </template>
       </div>
       <div class="c-file-manager_toolbar_group_block right">
-        <BtnBaseIcon :disabled="loading" :icon="MdiWebfont.reload" @click="emits('refresh')" />
-        <BtnSwicthView v-if="showSwitchView" />
+        <DBtnIcon :disabled="loading" :icon="MdiWebfont.reload" @click="emits('refresh')" />
+        <DBtnSwicthView v-if="showSwitchView" />
       </div>
     </div>
   </section>

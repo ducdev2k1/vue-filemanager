@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import { IFileManager } from '@/interfaces/IFileManager';
   import { t } from '@/plugins/i18n';
-  import { MdiWebfont } from '../Icons/mdi-font-icons';
+  import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
+
 
   defineOptions({
     inheritAttrs: false,
@@ -76,7 +77,7 @@
       </div>
     </template>
     <template #actions>
-      <BtnBase :title="t('locale.close')" :icon="MdiWebfont['close']" @click="() => emits('close')" />
+      <DBtn :title="t('locale.close')" :icon="MdiWebfont['close']" @click="() => emits('close')" />
     </template>
   </Modal>
 </template>

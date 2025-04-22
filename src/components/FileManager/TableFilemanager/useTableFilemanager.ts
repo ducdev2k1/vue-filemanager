@@ -20,6 +20,8 @@ export const useTableFilemanager = (dataTable: ComputedRef<IFileManager[]>, emit
   const { width } = useWindowSize();
 
   // Refs
+  const selectedItems = ref([] as IFileManager[]);
+  const objectSelectedOne = ref({} as IFileManager);
   const previousScrollTop = ref(0);
   const isLoading = ref(false);
   const isSelecting = ref(false);
@@ -32,8 +34,14 @@ export const useTableFilemanager = (dataTable: ComputedRef<IFileManager[]>, emit
   const hoveredRowIndex = ref<number | null>(null);
   const wrapperRef = ref<HTMLElement | null>(null);
 
-  const selectedItems = ref([] as IFileManager[]);
-  const objectSelectedOne = ref({} as IFileManager);
+  // For custom virtual scroller
+  const rowHeight = ref(48); // Height of each row in pixels
+  const startIndexVirtual = ref(0); // Start index for the visible items
+  const endIndexVirtual = ref(0); // End index for the visible items
+  const visibleItemCount = ref(0); // Number of items visible in the viewport
+  const bufferSize = 3; // Number of items to keep in the buffer above and below the viewport
+  const scrollTop = ref(0); // Current scroll position
+  const totalHeightVirtual = computed(() => dataTable.value.length * rowHeight.value); // Total height of the list
 
   // Constants
   const DOUBLE_TAP_DELAY = 300; // Time threshold for double tap (ms)
@@ -341,6 +349,11 @@ export const useTableFilemanager = (dataTable: ComputedRef<IFileManager[]>, emit
     lastTapTime,
     hoveredRowIndex,
     wrapperRef,
+    startIndexVirtual,
+    endIndexVirtual,
+    visibleItemCount,
+    bufferSize,
+    scrollTop,
 
     // Constants
     DOUBLE_TAP_DELAY,
@@ -350,6 +363,7 @@ export const useTableFilemanager = (dataTable: ComputedRef<IFileManager[]>, emit
     // Computed
     isMobile,
     heightTable,
+    totalHeightVirtual,
 
     // Functions
     selectAllItems,

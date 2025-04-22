@@ -1,0 +1,26 @@
+.d-tooltip {
+  position: absolute;
+  top: 103%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(97, 97, 97, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 999;
+  pointer-events: none;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    border-width: 5px 5px 0 5px;
+    border-color: rgba(97, 97, 97, 0.9) transparent transparent transparent;
+  }
+}

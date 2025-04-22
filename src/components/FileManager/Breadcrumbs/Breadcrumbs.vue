@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import BtnBase from '@/components/Button/BtnBase.vue';
   import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
   import { IFileManager } from '@/interfaces/IFileManager';
   import { breakPoint } from '@/utils/MyVariables';
@@ -52,7 +51,7 @@
 <template>
   <v-breadcrumbs class="text-white c-breadcrumbs" v-bind="$attrs">
     <v-breadcrumbs-item>
-      <BtnBase :disabled="listBreadcrumb.length <= 0" :title="textDefault" @click="actionReloadPage" />
+      <DBtn :disabled="listBreadcrumb.length <= 0" :title="textDefault" @click="actionReloadPage" />
     </v-breadcrumbs-item>
     <v-breadcrumbs-divider v-if="visibleBreadcrumbs.length > 0">
       <v-icon>{{ MdiWebfont['chevron-right'] }}</v-icon>
@@ -60,7 +59,7 @@
     <template v-for="(item, index) in visibleBreadcrumbs" :key="index">
       <v-menu v-if="!item.path" open-on-hover class="c-menu-down">
         <template #activator="{ props }">
-          <BtnBaseIcon v-bind="props" :icon="MdiWebfont['dots-horizontal']" />
+          <DBtnIcon v-bind="props" :icon="MdiWebfont['dots-horizontal']" />
         </template>
         <v-list class="c-menu-down_list">
           <v-list-item
@@ -76,14 +75,14 @@
         </v-list>
       </v-menu>
       <v-breadcrumbs-item v-else>
-        <BtnBase
+        <DBtn
           :icon="MdiWebfont['folder-outline']"
           :class="{ active: index === visibleBreadcrumbs.length - 1 }"
           @click="actionBreadCrumbClick(item)">
           <template #title>
             <span class="text-three-dots">{{ item.name }}</span>
           </template>
-        </BtnBase>
+        </DBtn>
       </v-breadcrumbs-item>
       <v-breadcrumbs-divider v-if="index < visibleBreadcrumbs.length - 1">
         <v-icon>{{ MdiWebfont['chevron-right'] }}</v-icon>

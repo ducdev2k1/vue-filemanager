@@ -129,7 +129,7 @@
 </script>
 
 <template>
-  <div class="c-file-manager">
+  <section class="c-file-manager">
     <ToolbarFilemanager
       @refresh="emits('refresh')"
       :loading="loading"
@@ -151,7 +151,7 @@
     <!--  E: Slot này dùng để chèn UI/UX mở rộng cần thiết -->
 
     <!---B: FILE MANAGER ---->
-    <CustomTable
+    <TableFilemanagerV2
       v-bind="$attrs"
       v-model="selectedItems"
       v-model:selectedOneItem="selectedOneItem"
@@ -191,7 +191,7 @@
       <template #no-data.table v-if="$slots['no-data']">
         <slot name="no-data" />
       </template>
-    </CustomTable>
+    </TableFilemanagerV2>
     <!--
     <template v-else-if="viewFM === EnumViewModeFm.thumbnails">
       <GridItem
@@ -214,5 +214,5 @@
       :on-click-item="props.contextMenuClick"
       :positionContextMenu="positionContextMenu" />
     <!---E: ContextMenu MOBILE--->
-  </div>
+  </section>
 </template>

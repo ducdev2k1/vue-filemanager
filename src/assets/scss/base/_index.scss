@@ -1,4 +1,4 @@
-@forward "variable";
-@forward "setting";
-@forward "media";
-@forward "reset";
+@import 'variable';
+@import 'setting';
+@import 'media';
+@import 'reset';

@@ -141,6 +141,7 @@
       permanently
       v-model="showModalConfirmDelete"
       :selectedItems="selectedItems"
+      @close="showModalConfirmDelete = false"
       :type-modal="EnumTypeConfirm.delete" />
   </div>
 </template>

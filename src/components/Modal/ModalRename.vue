@@ -69,17 +69,17 @@
     <template #content>
       <v-form ref="form" @submit.prevent="handleUpdateName">
         <div>
-          <ITextFieldAddon
+          <DTextFieldAddon
             v-model="name"
             ref="textField"
-            :rules="[actionValidateRequired]"
+            :error="[actionValidateRequired]"
             autofocus
             @focus="selectText"
             :label="t('locale.data_input', { data: t('locale.backend_data_name').toLowerCase() })">
             <template #append-inner>
               <span class="text-place">{{ type }}</span>
             </template>
-          </ITextFieldAddon>
+          </DTextFieldAddon>
         </div>
         <div class="c-dialog_gr-action">
           <BtnBase :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />

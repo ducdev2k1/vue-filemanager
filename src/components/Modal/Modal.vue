@@ -46,7 +46,7 @@
         <h3 class="text-three-dots">
           <slot name="title" />
         </h3>
-        <BtnBase :icon="MdiWebfont.close" class="" @click="closeModal" />
+        <DBtnIcon :icon="MdiWebfont.close" class="" @click="closeModal" />
       </v-card-title>
 
       <template v-if="$slots.content">

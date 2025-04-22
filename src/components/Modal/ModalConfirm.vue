@@ -129,7 +129,7 @@
             <div class="c-modal-confirm_delete">
               <template v-if="selectedItems.length > 0">
                 <div class="c-modal-confirm_delete-content">
-                  <alert-message
+                  <d-alert-message
                     type="error"
                     :text="permanently ? t('locale.permanently_delete_content') : t('locale.delete_object_and_share')"
                     :btn-close="false" />
@@ -156,17 +156,17 @@
     <template #actions>
       <template v-if="!$slots.actions">
         <template v-if="typeConfirm === EnumTypeConfirm.cancel">
-          <BtnBase
+          <DBtn
             class="c-btn-primary mr-4"
             :title="t('locale.data_resume', { data: t('locale.upload_custom').toLowerCase() })"
             :icon-mdi="MdiWebfont['cloud-upload-outline']"
             @click="emits('close')" />
 
-          <BtnBase class="c-btn-danger" :title="t('locale.cancel_upload')" icon="X" @click="emits('submit')" />
+          <DBtn class="c-btn-danger" :title="t('locale.cancel_upload')" icon="X" @click="emits('submit')" />
         </template>
         <template v-else>
-          <BtnBase :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
-          <BtnBase
+          <DBtn :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
+          <DBtn
             :class="[typeConfirm === EnumTypeConfirm.delete ? 'c-btn-danger' : 'c-btn-submit']"
             :title="textBtnSubmit || titleButtonSubmit"
             :icon="
