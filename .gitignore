@@ -29,8 +29,7 @@ src/typed-router.d.ts
 src/components.d.ts
 components.d.ts
 
-# packages
-package-lock.json
+
 
 #yarn
 yarn.lock
