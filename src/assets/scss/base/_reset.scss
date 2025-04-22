@@ -1,0 +1,262 @@
+// vuetify
+.v-table {
+  background: var(--color-app-content) !important;
+
+  * {
+    color: var(--color-text);
+  }
+
+  &.v-table--fixed-header > .v-table__wrapper > table > thead {
+    z-index: 8;
+  }
+
+  tr {
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &:hover,
+    &.element_selected {
+      background: var(--color-history);
+    }
+  }
+
+  &.v-table--fixed-header > .v-table__wrapper > table > thead > tr > th {
+    background: var(--color-app-content) !important;
+  }
+
+  &__wrapper {
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+
+    &:hover {
+      scrollbar-color: #a8a29e transparent;
+      scrollbar-width: thin;
+    }
+  }
+  .v-data-table-rows-no-data {
+    > td {
+      border-bottom: none !important;
+    }
+    &:hover {
+      background: transparent !important;
+    }
+  }
+}
+
+.v-navigation-drawer {
+  background-color: var(--color-app) !important;
+  border: none;
+
+  &__content {
+    background: transparent;
+    padding: 12px;
+    padding-bottom: 0;
+  }
+
+  &--right {
+    border-color: var(--color-border);
+  }
+}
+
+.v-list {
+  padding: 0;
+  background: var(--color-dropdown) !important;
+  min-width: 150px;
+
+  * {
+    color: var(--color-text);
+    font-size: 16px;
+  }
+
+  &-item--density-default.v-list-item--one-line {
+    min-height: auto;
+  }
+}
+
+.v-selection-control__input {
+  i {
+    font-size: 20px;
+  }
+}
+
+.v-input--error:not(.v-input--disabled) .v-input__details > .v-icon,
+.v-input--error:not(.v-input--disabled) .v-input__details .v-messages,
+.v-input--error:not(.v-input--disabled) .v-input__prepend > .v-icon,
+.v-input--error:not(.v-input--disabled) .v-input__prepend .v-messages,
+.v-input--error:not(.v-input--disabled) .v-input__append > .v-icon,
+.v-input--error:not(.v-input--disabled) .v-input__append .v-messages,
+.v-messages__message {
+  color: var(--color-danger) !important;
+}
+
+.v-list-item__prepend > .v-badge .v-icon,
+.v-list-item__prepend > .v-icon,
+.v-list-item__append > .v-badge .v-icon,
+.v-list-item__append > .v-icon {
+  opacity: 1;
+}
+
+.v-card {
+  padding: 12px;
+
+  &-title,
+  &-text,
+  &-actions {
+    padding: 0 !important;
+  }
+
+  &-title {
+    padding-bottom: 1rem !important;
+  }
+}
+
+.v-field {
+  color: var(--color-text);
+  font-family: var(--font-open-sans);
+  font-size: 14px;
+  line-height: 24px;
+  padding: 0 12px !important;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 100%;
+
+  &__input {
+    padding: 0;
+    min-height: 56px;
+  }
+
+  input {
+    &::placeholder {
+      color: var(--color-text-60) !important;
+      opacity: 1;
+    }
+
+    &:focus {
+      &::placeholder {
+        color: transparent;
+      }
+    }
+  }
+
+  &:focus,
+  &:active,
+  &:focus-visible,
+  &:active:focus-visible {
+    @apply outline-none;
+    @apply shadow-none;
+  }
+
+  @media (max-width: 767px) {
+    font-size: 14px;
+    &__input {
+      padding: 0;
+      min-height: 42px;
+    }
+  }
+}
+
+.v-input__details {
+  * {
+    color: var(--color-danger);
+  }
+}
+
+.v-input.v-input--error {
+  * {
+    color: var(--color-danger);
+  }
+
+  input {
+    color: var(--color-text);
+  }
+}
+
+textarea {
+  resize: none;
+  padding: 12px 0 !important;
+}
+
+.v-input--density-default {
+  --v-input-control-height: auto;
+}
+
+.v-text-field .v-input__details {
+  padding-inline: 0;
+}
+
+.v-divider {
+  border-color: var(--color-title);
+}
+
+.v-messages__message {
+  font-size: 14px;
+  line-height: 18px;
+  @media (max-width: 767px) {
+    font-size: 14px;
+  }
+}
+
+.v-list-item:hover > .v-list-item__overlay {
+  opacity: 0.2 !important;
+}
+
+.v-breadcrumbs {
+  padding: 0;
+
+  &.v-breadcrumbs--density-default {
+    padding: 0;
+  }
+}
+
+.mdi-checkbox-marked {
+  color: var(--color-primary);
+}
+
+.mdi-minus-box {
+  color: var(--color-primary);
+  opacity: 0.5;
+}
+
+.v-data-table__td {
+  z-index: 2;
+  position: relative;
+
+  &::after {
+    background: var(--color-table-hover) !important;
+    z-index: -1;
+  }
+}
+
+.v-list-item__prepend > .v-badge ~ .v-list-item__spacer,
+.v-list-item__prepend > .v-icon ~ .v-list-item__spacer,
+.v-list-item__prepend > .v-tooltip ~ .v-list-item__spacer {
+  width: 0;
+}
+
+.v-btn--disabled.v-btn--variant-elevated,
+.v-btn--disabled.v-btn--variant-flat {
+  background: transparent;
+}
+
+@media (max-width: 1199px) {
+  .v-dialog > .v-overlay__content {
+    max-height: calc(100% - 16px);
+    width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+    margin: 16px;
+  }
+
+  .v-field:not(.v-field--active) {
+    .v-label.v-field-label {
+      font-size: 13px;
+      margin-inline-start: 5px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .v-navigation-drawer {
+    background-color: var(--color-app-content) !important;
+  }
+}

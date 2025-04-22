@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+// ----------------------------------------------------------------------
+// compass reset
+// ----------------------------------------------------------------------
+// Browser support Changed the order of description to put webkit at the top
+@mixin experimental($property, $value, $moz: $experimental-support-for-mozilla, $webkit: $experimental-support-for-webkit, $o: $experimental-support-for-opera, $ms: $experimental-support-for-microsoft, $khtml: $experimental-support-for-khtml, $official: true) {
+  @if $webkit and $experimental-support-for-webkit {
+    -webkit-#{$property}: $value; }
+  @if $moz and $experimental-support-for-mozilla {
+    -moz-#{$property}: $value; }
+  @if $o and $experimental-support-for-opera {
+    -o-#{$property}: $value; }
+  @if $ms and $experimental-support-for-microsoft {
+    -ms-#{$property}: $value; }
+  @if $khtml and $experimental-support-for-khtml {
+    -khtml-#{$property}: $value; }
+  @if $official {
+    #{$property}: $value; } }
+
+@mixin experimental-value($property, $value, $moz: $experimental-support-for-mozilla, $webkit: $experimental-support-for-webkit, $o: $experimental-support-for-opera, $ms: $experimental-support-for-microsoft, $khtml: $experimental-support-for-khtml, $official: true) {
+  @if $webkit and $experimental-support-for-webkit {
+    #{$property}: -webkit-#{$value}; }
+  @if $moz and $experimental-support-for-mozilla {
+    #{$property}: -moz-#{$value}; }
+  @if $o and $experimental-support-for-opera {
+    #{$property}: -o-#{$value}; }
+  @if $ms and $experimental-support-for-microsoft {
+    #{$property}: -ms-#{$value}; }
+  @if $khtml and $experimental-support-for-khtml {
+    #{$property}: -khtml-#{$value}; }
+  @if $official {
+    #{$property}: #{$value}; } }
+
+// transition-property Add a vendor prefix to「experimental」
+@mixin experimental-prop-value($property, $value, $moz: $experimental-support-for-mozilla, $webkit: $experimental-support-for-webkit, $o: $experimental-support-for-opera, $ms: $experimental-support-for-microsoft, $khtml: $experimental-support-for-khtml, $official: true) {
+  @if $webkit and $experimental-support-for-webkit {
+    -webkit-#{$property}: -webkit-#{$value}; }
+  @if $moz and $experimental-support-for-mozilla {
+    -moz-#{$property}: -moz-#{$value}; }
+  @if $o and $experimental-support-for-opera {
+    -o-#{$property}: -o-#{$value}; }
+  @if $ms and $experimental-support-for-microsoft {
+    -ms-#{$property}: -ms-#{$value}; }
+  @if $khtml and $experimental-support-for-khtml {
+    -khtml-#{$property}: -khtml-#{$value}; }
+  @if $official {
+    #{$property}: $value; } }
+
+@mixin transition($transition-1: default, $transition-2: false, $transition-3: false, $transition-4: false, $transition-5: false, $transition-6: false, $transition-7: false, $transition-8: false, $transition-9: false, $transition-10: false) {
+  $legacy: type-of($transition-1) == string and type-of(if($transition-2, $transition-2, 0)) == number and type-of(if($transition-3, $transition-3, "")) == string and type-of(if($transition-4, $transition-4, 0)) == number and ($transition-2 or $transition-3 or $transition-4);
+  @if $legacy {
+    @warn "Passing separate arguments for a single transition to transition is deprecated. " + "Pass the values as a single space-separated list, or use the single-transition mixin.";
+    @include single-transition(if($transition-1, $transition-1, $default-transition-property), if($transition-2, $transition-2, $default-transition-duration), if($transition-3, $transition-3, $default-transition-function), if($transition-4, $transition-4, $default-transition-delay)); }
+  @else {
+    @if $transition-1 == default {
+      $transition-1: -compass-space-list(compact($default-transition-property, $default-transition-duration, $default-transition-function, $default-transition-delay)); }
+    $transition: compact($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10);
+    @include experimental(transition, $transition, -moz, -webkit, -o, -ms, not -khtml, official); } }
+
+// transition-propertyにはtransformにベンダープレフィックスをつけるように変更
+// transition-propertyなどには複数選択することができない
+// 特に動かしたい要素を限定しない場合はtransition-property : all;で良い気がします
+@mixin transition-property($properties: $default-transition-property) {
+	
+	@if $properties == transform {
+		@include experimental-prop-value(transition-property, unquote($properties), -moz, -webkit, -o, -ms, not -khtml, official);
+	}
+	@else {
+		@include experimental(transition-property, unquote($properties), -moz, -webkit, -o, -ms, not -khtml, official);
+	} }
+
+// transition初期だとmsが吐き出されないように not になっているものを修正
+@mixin transition-duration($duration: $default-transition-duration) {
+  @if type-of($duration) == string {
+    $duration: unquote($duration); }
+  @include experimental(transition-duration, $duration, -moz, -webkit, -o, -ms, not -khtml, official); }
+@mixin transition-timing-function($function: $default-transition-function) {
+  @include experimental(transition-timing-function, unquote($function), -moz, -webkit, -o, -ms, not -khtml, official); }
+@mixin transition-delay($delay: $default-transition-delay) {
+  @if type-of($delay) == string {
+    $delay: unquote($delay); }
+  @include experimental(transition-delay, $delay, -moz, -webkit, -o, -ms, not -khtml, official); }
+
+
