@@ -1,14 +1,3 @@
-<template>
-  <span
-    v-bind="$attrs"
-    class="d-icon"
-    :class="{ 'd-icon--disabled': disabled }"
-    :style="{ color, fontSize: size ? `${size}px` : undefined }"
-    @click="emit('click')">
-    <i class="mdi" :class="icon" />
-  </span>
-</template>
-
 <script setup lang="ts">
   defineOptions({
     inheritAttrs: false,
@@ -25,6 +14,16 @@
     (e: 'click'): void;
   }>();
 </script>
+<template>
+  <span
+    v-bind="$attrs"
+    class="d-icon"
+    :class="{ 'd-icon--disabled': disabled }"
+    :style="{ color, fontSize: props.size ? `${props.size}px` : undefined }"
+    @click="emit('click')">
+    <i class="mdi" :class="icon" />
+  </span>
+</template>
 
 <style scoped lang="scss">
   $d-icon-hover: rgba(0, 0, 0, 0.08);

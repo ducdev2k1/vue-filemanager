@@ -10,7 +10,6 @@
 
 <script setup lang="ts">
   import { defineProps } from 'vue';
-  import DIcon from './DIcon.vue'; // Adjust path as needed
 
   const props = defineProps<{
     text?: string;
