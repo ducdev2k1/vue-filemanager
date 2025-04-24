@@ -6,7 +6,7 @@
 
 // Plugins
 import pinia from '../stores';
-import vuetify from './vuetify';
+// import vuetify from './vuetify';
 
 // Types
 import { i18n } from '@/plugins/i18n';
@@ -16,7 +16,7 @@ import 'vue3-toastify/dist/index.css';
 
 export function registerPlugins(app: App) {
   app
-    .use(vuetify)
+    // .use(vuetify)
     // .use(router)
     .use(pinia)
     .use(i18n)

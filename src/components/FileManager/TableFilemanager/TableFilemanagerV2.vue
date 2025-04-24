@@ -168,13 +168,13 @@
     <div ref="tableRef" class="d-table-virtual">
       <!-- Table header -->
       <div class="d-table-virtual__header">
-        <table style="table-layout: fixed, width: 100%">
+        <table style="table-layout: fixed; width: 100%">
           <thead>
             <tr>
               <th v-if="showCheckbox" class="text-center" style="width: 50px">
                 <DCheckbox @click.stop="selectAllItems" :model-value="selectedItems.length === dataTable.length" />
               </th>
-              <th v-for="header in headerTable" :key="header.key" :width="header.width">
+              <th v-for="header in headerTable" :key="header.key" :width="header.width" :height="rowHeight">
                 {{ header.title }}
               </th>
             </tr>
@@ -213,7 +213,7 @@
                 @mouseup="stopSelection">
                 <!-- Checkbox -->
                 <td v-if="showCheckbox" class="d-table-virtual__cell text-center" style="width: 50px">
-                  <v-checkbox
+                  <DCheckbox
                     hide-details
                     @click.stop="handleCheckboxClick($event, item)"
                     :model-value="isItemSelected(item)" />
@@ -239,94 +239,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-  .d-table-virtual_wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .d-table-virtual_header-selected {
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    color: white;
-  }
-
-  .d-table-virtual {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .d-table-virtual__header {
-    /* background-color: var(--v-surface-variant, #f5f5f5);
-    border-bottom: 1px solid var(--v-border-color, #e0e0e0); */
-  }
-
-  .d-table-virtual__header table {
-    table-layout: fixed;
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  .d-table-virtual__header th {
-    font-weight: 500;
-    text-align: left;
-    padding: 0 16px;
-    height: 48px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .d-table-virtual__body {
-    flex: 1;
-    overflow-y: auto;
-    position: relative;
-  }
-
-  .d-table-virtual__spacer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    pointer-events: none;
-  }
-
-  .d-table-virtual__visible-rows {
-    position: absolute;
-    width: 100%;
-    left: 0;
-  }
-
-  .d-table-virtual__row {
-    display: table-row;
-    border-bottom: 1px solid var(--v-border-color, #e0e0e0);
-    transition: background-color 0.2s;
-  }
-
-  .d-table-virtual__cell {
-    padding: 0 16px;
-    display: table-cell;
-    align-items: center;
-    vertical-align: middle;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .d-table-virtual__no-data {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 24px;
-    height: 100%;
-  }
-</style>

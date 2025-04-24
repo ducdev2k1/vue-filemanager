@@ -39,8 +39,8 @@
 <template>
   <div class="c-file-manager_name-file">
     <div class="c-file-manager_name-file_left">
-      <v-icon v-if="!isImage" style="font-size: 32px">{{ iconThumnail }}</v-icon>
-      <v-img
+      <i v-if="!isImage" style="font-size: 32px" :class="iconThumnail" />
+      <img
         v-else
         class="object-contain"
         :src="iconThumnail"

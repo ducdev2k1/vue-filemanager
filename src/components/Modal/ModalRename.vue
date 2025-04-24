@@ -82,8 +82,8 @@
           </DTextFieldAddon>
         </div>
         <div class="c-dialog_gr-action">
-          <BtnBase :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
-          <BtnBase
+          <DBtn :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
+          <DBtn
             :icon="MdiWebfont['send-variant']"
             class="c-btn-primary"
             type="submit"

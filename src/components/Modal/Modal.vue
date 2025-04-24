@@ -40,7 +40,7 @@
 </script>
 
 <template>
-  <v-dialog class="c-dialog" v-model="dialogModel" v-bind="$attrs" :persistent="persistent">
+  <DModal class="c-dialog" v-model="dialogModel" v-bind="$attrs" :persistent="persistent" max-width="600px">
     <v-card class="c-dialog_card">
       <v-card-title v-if="!hiddenHeader">
         <h3 class="text-three-dots">
@@ -61,5 +61,5 @@
       </template>
       <slot />
     </v-card>
-  </v-dialog>
+  </DModal>
 </template>

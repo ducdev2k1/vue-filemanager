@@ -5,7 +5,7 @@ import Components from 'unplugin-vue-components/vite';
 import VueRouter from 'unplugin-vue-router/vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
+// import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 
 // Utilities
 import { fileURLToPath, URL } from 'node:url';
@@ -54,12 +54,12 @@ const { VITE_PORT, VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_SERVER_URL } = vite
 export default defineConfig({
   plugins: [
     Vue({
-      template: { transformAssetUrls },
+      // template: { transformAssetUrls },
     }),
     dts({ insertTypesEntry: true }),
-    vuetify({
-      autoImport: true,
-    }),
+    // vuetify({
+    //   autoImport: true,
+    // }),
     VueI18nPlugin({
       include: [path.resolve(__dirname, './src/locales/**')],
     }),

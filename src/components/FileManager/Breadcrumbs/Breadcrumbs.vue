@@ -54,15 +54,16 @@
       <DBtn :disabled="listBreadcrumb.length <= 0" :title="textDefault" @click="actionReloadPage" />
     </v-breadcrumbs-item>
     <v-breadcrumbs-divider v-if="visibleBreadcrumbs.length > 0">
-      <v-icon>{{ MdiWebfont['chevron-right'] }}</v-icon>
+      <!-- <v-icon>{{ MdiWebfont['chevron-right'] }}</v-icon> -->
+      <i :class="MdiWebfont['chevron-right']" />
     </v-breadcrumbs-divider>
     <template v-for="(item, index) in visibleBreadcrumbs" :key="index">
       <v-menu v-if="!item.path" open-on-hover class="c-menu-down">
         <template #activator="{ props }">
           <DBtnIcon v-bind="props" :icon="MdiWebfont['dots-horizontal']" />
         </template>
-        <v-list class="c-menu-down_list">
-          <v-list-item
+        <d-list class="c-menu-down_list">
+          <d-list-item
             class="c-menu-down_item"
             v-for="(hiddenItem, i) in hiddenBreadcrumbs"
             :key="i"
@@ -71,8 +72,8 @@
             <template #prepend>
               <v-icon>{{ MdiWebfont['folder-outline'] }}</v-icon>
             </template>
-          </v-list-item>
-        </v-list>
+          </d-list-item>
+        </d-list>
       </v-menu>
       <v-breadcrumbs-item v-else>
         <DBtn

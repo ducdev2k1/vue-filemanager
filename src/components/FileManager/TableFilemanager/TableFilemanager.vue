@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { useTableFilemanager } from '@/components/FileManager/TableFilemanager/useTableFilemanager';
-import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
-import { IFileManager } from '@/interfaces/IFileManager';
-import { t } from '@/plugins/i18n';
-import { EnumLocalStorageKey, EnumViewModeFm } from '@/utils/MyEnum';
-import { addEventKeyDown } from '@/utils/MyFunction';
-import { useStorage } from '@vueuse/core';
+  import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
+  import { IFileManager } from '@/interfaces/IFileManager';
+  import { t } from '@/plugins/i18n';
+  import { EnumLocalStorageKey, EnumViewModeFm } from '@/utils/MyEnum';
+  import { addEventKeyDown } from '@/utils/MyFunction';
+  import { useStorage } from '@vueuse/core';
 
   defineOptions({
     inheritAttrs: false,
@@ -223,7 +223,7 @@ import { useStorage } from '@vueuse/core';
               @mouseup="stopSelection">
               <!-- Checkbox -->
               <div v-if="showCheckbox" class="d-data-table-virtual__cell text-center" style="width: 50px">
-                <v-checkbox
+                <DCheckbox
                   hide-details
                   @click.stop="handleCheckboxClick($event, item)"
                   :model-value="isItemSelected(item)" />
@@ -231,7 +231,9 @@ import { useStorage } from '@vueuse/core';
 
               <!-- Data cells -->
               <template v-for="header in headerTable" :key="header.key">
-                <div class="d-data-table-virtual__cell" :style="{ width: typeof header.width === 'number' ? `${header.width}px` : header.width }">
+                <div
+                  class="d-data-table-virtual__cell"
+                  :style="{ width: typeof header.width === 'number' ? `${header.width}px` : header.width }">
                   <slot
                     v-if="$slots[`item.${header.key}`]"
                     :name="`item.${header.key}`"

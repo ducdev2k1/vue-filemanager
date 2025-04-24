@@ -1,6 +1,7 @@
 import { App } from 'vue';
 
 // import styles
+import './assets/css/materialdesignicons.min.css';
 import './assets/scss/filemanager.scss';
 
 // Import Components
