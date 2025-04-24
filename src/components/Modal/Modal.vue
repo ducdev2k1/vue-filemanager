@@ -41,25 +41,25 @@
 
 <template>
   <DModal class="c-dialog" v-model="dialogModel" v-bind="$attrs" :persistent="persistent" max-width="600px">
-    <v-card class="c-dialog_card">
-      <v-card-title v-if="!hiddenHeader">
+    <d-card class="c-dialog_card">
+      <d-card-title v-if="!hiddenHeader">
         <h3 class="text-three-dots">
           <slot name="title" />
         </h3>
         <DBtnIcon :icon="MdiWebfont.close" class="" @click="closeModal" />
-      </v-card-title>
+      </d-card-title>
 
       <template v-if="$slots.content">
-        <v-card-text v-if="$slots.content">
+        <d-card-text v-if="$slots.content">
           <slot name="content" />
-        </v-card-text>
-        <v-card-actions v-if="$slots.actions">
+        </d-card-text>
+        <d-card-actions v-if="$slots.actions">
           <div class="c-dialog_gr-action">
             <slot name="actions" />
           </div>
-        </v-card-actions>
+        </d-card-actions>
       </template>
       <slot />
-    </v-card>
+    </d-card>
   </DModal>
 </template>

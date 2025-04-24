@@ -3,25 +3,29 @@
     class="d-list-item"
     :class="{ 'd-list-item--selectable': selectable, 'd-list-item--active': active }"
     @click="emit('click')">
-    <!-- Prepend slot -->
-    <slot name="prepend"></slot>
+    <slot v-if="$slots['prepend']" name="prepend"></slot>
+    <d-icon v-else :icon="prependIcon" />
 
-    <!-- Default slot for main content -->
     <div class="d-list-item-content">
+      <slot v-if="$slots['title']" name="title" />
+      <span v-else-if="title" class="d-list-item_title">{{ title }}</span>
       <slot></slot>
     </div>
 
-    <!-- Append slot -->
-    <slot name="append"></slot>
+    <slot v-if="$slots['append']" name="append"></slot>
+    <d-icon v-else :icon="prependIcon" />
   </div>
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineEmits } from 'vue';
+  import { defineEmits, defineProps } from 'vue';
 
   const props = defineProps<{
     selectable?: boolean;
     active?: boolean;
+    title?: string;
+    prependIcon?: string;
+    appendIcon?: string;
   }>();
 
   const emit = defineEmits<{
@@ -40,6 +44,7 @@
     padding: 12px 16px;
     cursor: pointer;
     transition: background 0.2s ease;
+    gap: 0.25rem;
 
     &:hover {
       background: $list-item-hover;

@@ -5,22 +5,28 @@ import './assets/css/materialdesignicons.min.css';
 import './assets/scss/filemanager.scss';
 
 // Import Components
-import DBtn from './components/DCustom/DButton/DBtn.vue';
-import DBtnIcon from './components/DCustom/DButton/DBtnIcon.vue';
-import DBtnSwicthView from './components/DCustom/DButton/DBtnSwicthView.vue';
+
+import DCustom from './components/DCustom';
 import FileManager from './components/FileManager/FileManager.vue';
 import Modal from './components/Modal/Modal.vue';
 import ModalConfirm from './components/Modal/ModalConfirm.vue';
 
+// Components to export individually
+const componentsToExport = {
+  FileManager,
+  Modal,
+  ModalConfirm,
+  ...DCustom, // Spread all components from DCustom
+};
+
 export default {
   install(app: App) {
-    app.component('DBtn', DBtn);
-    app.component('DBtnIcon', DBtnIcon);
-    app.component('DBtnSwicthView', DBtnSwicthView);
-    app.component('FileManager', FileManager);
-    app.component('ModalConfirm', ModalConfirm);
-    app.component('Modal', Modal);
+    // Register all components dynamically
+    Object.entries(componentsToExport).forEach(([name, component]) => {
+      app.component(name, component);
+    });
   },
 };
 
-export { DBtn, DBtnIcon, DBtnSwicthView, FileManager, Modal, ModalConfirm };
+// Export individual components for direct usage
+export { componentsToExport };

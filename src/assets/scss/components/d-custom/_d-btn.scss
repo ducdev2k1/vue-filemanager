@@ -1,6 +1,6 @@
 .d-btn {
   border-radius: 8px;
-  padding: 6px 8px;
+  @apply py-2 px-3;
   min-width: 36px;
   height: 36px;
   transition: all 0.2s ease;

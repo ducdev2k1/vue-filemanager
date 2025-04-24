@@ -152,16 +152,6 @@
 </template>
 
 <style scoped>
-  .d-btn--disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-
-  .d-btn:hover:not(.d-btn--disabled) {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
   .d-btn__prepend,
   .d-btn__append {
     display: inline-flex;

@@ -49,14 +49,13 @@
 </script>
 
 <template>
-  <v-breadcrumbs class="text-white c-breadcrumbs" v-bind="$attrs">
-    <v-breadcrumbs-item>
+  <DBreadcrumbs class="text-white c-breadcrumbs" v-bind="$attrs" :items="visibleBreadcrumbs">
+    <d-breadcrumbs-item>
       <DBtn :disabled="listBreadcrumb.length <= 0" :title="textDefault" @click="actionReloadPage" />
-    </v-breadcrumbs-item>
-    <v-breadcrumbs-divider v-if="visibleBreadcrumbs.length > 0">
-      <!-- <v-icon>{{ MdiWebfont['chevron-right'] }}</v-icon> -->
-      <i :class="MdiWebfont['chevron-right']" />
-    </v-breadcrumbs-divider>
+    </d-breadcrumbs-item>
+    <d-breadcrumbs-divider v-if="visibleBreadcrumbs.length > 0">
+      <d-icon :icon="MdiWebfont['chevron-right']" />
+    </d-breadcrumbs-divider>
     <template v-for="(item, index) in visibleBreadcrumbs" :key="index">
       <v-menu v-if="!item.path" open-on-hover class="c-menu-down">
         <template #activator="{ props }">
@@ -70,12 +69,12 @@
             @click="actionBreadCrumbClick(hiddenItem)">
             <span class="text-three-dots">{{ hiddenItem.name }}</span>
             <template #prepend>
-              <v-icon>{{ MdiWebfont['folder-outline'] }}</v-icon>
+              <d-icon :icon="MdiWebfont['folder-outline']" />
             </template>
           </d-list-item>
         </d-list>
       </v-menu>
-      <v-breadcrumbs-item v-else>
+      <d-breadcrumbs-item v-else>
         <DBtn
           :icon="MdiWebfont['folder-outline']"
           :class="{ active: index === visibleBreadcrumbs.length - 1 }"
@@ -84,10 +83,10 @@
             <span class="text-three-dots">{{ item.name }}</span>
           </template>
         </DBtn>
-      </v-breadcrumbs-item>
-      <v-breadcrumbs-divider v-if="index < visibleBreadcrumbs.length - 1">
-        <v-icon>{{ MdiWebfont['chevron-right'] }}</v-icon>
-      </v-breadcrumbs-divider>
+      </d-breadcrumbs-item>
+      <d-breadcrumbs-divider v-if="index < visibleBreadcrumbs.length - 1">
+        <d-icon :icon="MdiWebfont['chevron-right']" />
+      </d-breadcrumbs-divider>
     </template>
-  </v-breadcrumbs>
+  </DBreadcrumbs>
 </template>
