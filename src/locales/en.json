@@ -75,6 +75,7 @@
     "permanently_delete_content": "These files will be permanently deleted and you cannot recover them.",
     "remove": "Remove",
     "rename": "Rename",
+    "required": "Required",
     "selected": "Selected",
     "trash": "Trash bin"
   }

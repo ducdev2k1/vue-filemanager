@@ -2,6 +2,7 @@
   import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
   import { DemoActionFM } from '@/data/DemoActionFm';
   import { IActionFM } from '@/interfaces';
+  import { IFileManager } from '@/interfaces/IFileManager';
 
   defineOptions({
     inheritAttrs: false,
@@ -9,9 +10,9 @@
 
   interface IProps {
     loading?: boolean;
+    selectedItems?: IFileManager[];
     showSwitchView?: boolean;
     actionToolbar?: IActionFM[];
-
     toolbarClick?: (item: IActionFM) => void;
   }
 

@@ -40,8 +40,23 @@
 </script>
 
 <template>
-  <DModal class="c-dialog" v-model="dialogModel" v-bind="$attrs" :persistent="persistent" max-width="600px">
-    <d-card class="c-dialog_card">
+  <DModal
+    class="c-dialog"
+    v-model="dialogModel"
+    v-bind="$attrs"
+    :persistent="persistent"
+    max-width="600px"
+    @close="closeModal">
+    <template #header v-if="!hiddenHeader">
+      <h3 class="text-three-dots">
+        <slot name="title" />
+      </h3>
+      <DBtnIcon :icon="MdiWebfont.close" class="" @click="closeModal" />
+    </template>
+    <slot v-if="$slots.content">
+      <slot name="content" />
+    </slot>
+    <!-- <d-card class="c-dialog_card">
       <d-card-title v-if="!hiddenHeader">
         <h3 class="text-three-dots">
           <slot name="title" />
@@ -60,6 +75,9 @@
         </d-card-actions>
       </template>
       <slot />
-    </d-card>
+    </d-card> -->
+    <template #footer v-if="$slots.actions">
+      <slot name="actions" />
+    </template>
   </DModal>
 </template>

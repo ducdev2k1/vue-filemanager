@@ -1,0 +1,53 @@
+$list-bg: #fff;
+$list-item-hover: rgba(0, 0, 0, 0.08);
+$list-item-active: rgba(0, 0, 0, 0.12);
+$primary-color: #1976d2;
+
+.d-list {
+  background: $list-bg;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &--dense {
+    .d-list-item {
+      padding: 8px 16px;
+      font-size: 0.875rem;
+    }
+  }
+
+  &--nav {
+    .d-list-item {
+      padding: 8px 12px;
+      border-radius: 4px;
+      margin: 4px 8px;
+      &:hover {
+        background: $list-item-hover;
+      }
+    }
+  }
+  &-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    gap: 1rem;
+
+    &:hover {
+      background: $list-item-hover;
+    }
+
+    &--selectable {
+      &.d-list-item--active {
+        background: $list-item-active;
+        color: $primary-color;
+      }
+    }
+
+    .d-list-item-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
-  import { t } from '@/plugins/i18n';
   import { defineEmits, defineProps } from 'vue';
 
   // Define props with TypeScript
@@ -13,10 +12,32 @@
   }>();
 
   // Define emits with TypeScript
-  const emit = defineEmits<{
-    (e: 'update:modelValue', value: boolean): void;
-    (e: 'confirm'): void;
-  }>();
+  const emit = defineEmits(['update:modelValue', 'close', 'submit']);
+  // State to trigger scale animation
+  const isScaled = ref(false);
+  const isInitialOpen = ref(false);
+
+  // Handle overlay click for persistent mode
+  const handleOverlayClick = () => {
+    if (props.persistent) {
+      isScaled.value = true;
+      setTimeout(() => {
+        isScaled.value = false;
+      }, 200); // Duration matches CSS animation
+    } else {
+      emit('close');
+    }
+  };
+
+  // Trigger initial animation on mount
+  onMounted(() => {
+    if (props.modelValue) {
+      isInitialOpen.value = true;
+      setTimeout(() => {
+        isInitialOpen.value = false; // Remove initial animation after it runs
+      }, 300); // Match scaleIn duration
+    }
+  });
 </script>
 
 <template>
@@ -26,41 +47,31 @@
       <div
         class="d-modal-overlay"
         :class="{ 'd-modal-overlay--persistent': persistent }"
-        @click="!persistent && emit('update:modelValue', false)"></div>
+        @click.stop="handleOverlayClick"></div>
 
       <!-- Dialog content -->
       <div
         class="d-modal-container"
-        :class="{ 'd-modal-container--fullscreen': fullscreen }"
+        :class="{
+          'd-modal-container--fullscreen': fullscreen,
+          'd-modal-container--scaled': isScaled,
+          'd-modal-container--initial': isInitialOpen,
+        }"
         :style="{ maxWidth: maxWidth ? (typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`) : 'none' }"
         role="dialog">
-        <div class="d-modal-content">
+        <div class="d-modal-inner">
           <!-- Header slot -->
-          <slot name="header">
-            <div v-if="title" class="d-modal-header">
-              <strong class="d-modal-header--text">{{ title }}</strong>
+          <div class="d-modal-header">
+            <slot name="header">
+              <h3 class="d-modal-header--text">{{ title }}</h3>
               <d-btn-icon :icon="MdiWebfont['close']" />
-            </div>
-          </slot>
+            </slot>
+          </div>
 
           <!-- Default content slot -->
-          <slot></slot>
-
-          <!-- Actions slot -->
-          <slot name="actions">
-            <div v-if="!$slots['actions']" class="d-modal-footer">
-              <d-btn
-                class="d-modal-footer--btn d-btn-cancel"
-                :icon="MdiWebfont.close"
-                :disabled="!modelValue"
-                :title="t('locale.cancel')" />
-              <d-btn
-                class="d-modal-footer--btn d-btn-primary"
-                :icon="MdiWebfont['send-variant']"
-                :disabled="!modelValue"
-                :title="t('locale.ok')" />
-            </div>
-          </slot>
+          <div class="d-modal-content" :class="{ 'd-modal-content--fullscreen': fullscreen }">
+            <slot></slot>
+          </div>
         </div>
       </div>
     </div>

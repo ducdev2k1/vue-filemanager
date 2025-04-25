@@ -134,6 +134,7 @@
       @refresh="emits('refresh')"
       :loading="loading"
       :action-toolbar="actionToolbar"
+      :selectedItems="selectedItems"
       :toolbar-click="toolbarClick">
       <template #fmToolbarLeft>
         <slot v-if="$slots['fm-breadcrumbs']" name="fm-breadcrumbs" />

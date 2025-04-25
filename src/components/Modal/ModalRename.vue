@@ -44,6 +44,7 @@
     if (isValid && name.value) {
       emits('submit', `${name.value}${type.value}`);
     }
+    console.log('isValid', name.value, type.value);
   };
 
   onMounted(() => {
@@ -67,12 +68,12 @@
       {{ t('locale.rename') + ' ' + t(`locale.${objectSelectedOne.isDirectory ? 'folder' : 'file'}`).toLowerCase() }}
     </template>
     <template #content>
-      <v-form ref="form" @submit.prevent="handleUpdateName">
+      <form ref="form" @submit.prevent="handleUpdateName">
         <div>
           <DTextFieldAddon
             v-model="name"
             ref="textField"
-            :error="[actionValidateRequired]"
+            :rules="[actionValidateRequired]"
             autofocus
             @focus="selectText"
             :label="t('locale.data_input', { data: t('locale.backend_data_name').toLowerCase() })">
@@ -82,7 +83,7 @@
           </DTextFieldAddon>
         </div>
         <div class="c-dialog_gr-action">
-          <DBtn :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
+          <DBtn class="d-btn-cancel" :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
           <DBtn
             :icon="MdiWebfont['send-variant']"
             class="c-btn-primary"
@@ -90,7 +91,7 @@
             :loading="loading"
             :title="t('locale.ok')" />
         </div>
-      </v-form>
+      </form>
     </template>
   </Modal>
 </template>

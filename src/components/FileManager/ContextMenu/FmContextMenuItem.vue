@@ -24,9 +24,9 @@
         :append-icon="item.subMenus ? MdiWebfont['menu-right-outline'] : ''"
         :disabled="item?.disabled"
         @click="onClickItem(item)">
-        <template #prepend v-if="item.icon">
+        <!-- <template #prepend v-if="item.icon">
           <d-icon class="mr-2 mdi" :icon="MdiWebfont[item.icon] || item.icon" />
-        </template>
+        </template> -->
         <d-menu
           class="c-context-menu"
           v-if="item.subMenus && item.subMenus.length > 0"
