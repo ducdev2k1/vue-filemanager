@@ -101,7 +101,7 @@
       :action-toolbar="DemoActionFM"
       :item-height="46"
       :loading="loading"
-      :theme="'light'"
+      :theme="'dark'"
       :show-checkbox="false"
       :update-selected="(data) => (selectedItems = data)"
       :update-selected-one="(data) => (selectedOneItem = data)"

@@ -1,27 +1,3 @@
-<template>
-  <div class="d-menu" :class="{ 'd-menu--disabled': disabled }">
-    <!-- Activator slot -->
-    <slot name="activator" :on="activatorEvents" :attrs="activatorAttrs">
-      <DBtn v-if="!absolute" class="d-menu-activator" v-bind="activatorAttrs" v-on="activatorEvents">Menu</DBtn>
-    </slot>
-
-    <!-- Menu content -->
-    <teleport :to="attach || 'body'">
-      <transition :name="transition">
-        <div
-          v-if="modelValue"
-          class="d-menu-content"
-          :class="{ 'd-menu-content--absolute': absolute }"
-          :style="menuStyles"
-          ref="menuRef"
-          @mouseleave="openOnHover && close()">
-          <slot />
-        </div>
-      </transition>
-    </teleport>
-  </div>
-</template>
-
 <script setup lang="ts">
   import { useClickOutside } from '@/composables/clickOutside';
 
@@ -46,6 +22,7 @@
 
   const menuRef = ref<HTMLElement | null>(null);
   const modelValueInternal = ref(props.modelValue);
+  const style = ref<Record<string, string>>({});
 
   // Sync internal model with prop
   watch(
@@ -64,15 +41,25 @@
 
   // Activator events
   const activatorEvents = computed(() => ({
-    click: (e: Event) => {
+    click: (e: MouseEvent) => {
       if (!props.disabled) {
         emit('click', e);
         toggle();
+        style.value = {
+          top: `${e.clientY}px`,
+          left: `${e.clientX}px`,
+          position: 'absolute',
+        };
       }
     },
-    mouseenter: () => {
+    mouseenter: (e: MouseEvent) => {
       if (props.openOnHover && !props.disabled) {
         modelValueInternal.value = true;
+        style.value = {
+          top: `${e.clientY}px`,
+          left: `${e.clientX}px`,
+          position: 'absolute',
+        };
       }
     },
   }));
@@ -116,6 +103,30 @@
   };
 </script>
 
+<template>
+  <div class="d-menu" :class="{ 'd-menu--disabled': disabled }">
+    <!-- Activator slot -->
+    <slot name="activator" :on="activatorEvents" :attrs="activatorAttrs">
+      <DBtn v-if="!absolute" class="d-menu-activator" v-bind="activatorAttrs" v-on="activatorEvents">Menu</DBtn>
+    </slot>
+
+    <!-- Menu content -->
+    <teleport :to="attach || 'body'">
+      <transition :name="transition">
+        <div
+          v-if="modelValue"
+          class="d-menu-content"
+          :class="{ 'd-menu-content--absolute': absolute }"
+          :style="style || menuStyles"
+          ref="menuRef"
+          @mouseleave="openOnHover && close()">
+          <slot />
+        </div>
+      </transition>
+    </teleport>
+  </div>
+</template>
+
 <style scoped lang="scss">
   $d-menu-bg: #fff;
   $d-menu-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -141,23 +152,22 @@
         opacity: 0.9;
       }
     }
-
-    .d-menu-content {
-      background: $d-menu-bg;
-      border-radius: $d-menu-border-radius;
-      box-shadow: $d-menu-shadow;
-      position: absolute;
-      z-index: 1000;
-      min-width: 160px;
-      max-height: 300px;
-      overflow-y: auto;
-
-      &--absolute {
-        position: fixed;
-      }
-    }
   }
 
+  .d-menu-content {
+    background: $d-menu-bg;
+    border-radius: $d-menu-border-radius;
+    box-shadow: $d-menu-shadow;
+    position: absolute;
+    z-index: 1000;
+    min-width: 160px;
+    max-height: 300px;
+    overflow-y: auto;
+
+    &--absolute {
+      position: fixed;
+    }
+  }
   /* Transitions */
   .scale-enter-active,
   .scale-leave-active {

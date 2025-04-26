@@ -96,7 +96,13 @@
     },
   ]);
 
-  // Xử lý hiển thị context menu
+  const actionClickContextMenu = (item: IActionFM) => {
+    props.contextMenuClick && props.contextMenuClick(item);
+    // close context menu
+    showContextMenu.value = false;
+  };
+
+  // Show context-menu
   const handleShowContextMenu = (event: MouseEvent, bool: boolean) => {
     event.preventDefault();
     event.stopPropagation();
@@ -219,10 +225,11 @@
     <!-- <ContextMenu >
       <slot v-if="$slots['context-menu']" name="context-menu" />
     </ContextMenu> -->
-    <FmContextMenu
+    <ContextMenu
       v-if="showContextMenu"
       :items="contextMenuOptions"
-      :on-click-item="props.contextMenuClick"
+      @close="showContextMenu = false"
+      :on-click-item="actionClickContextMenu"
       :positionContextMenu="positionContextMenu" />
     <!---E: ContextMenu MOBILE--->
   </section>
