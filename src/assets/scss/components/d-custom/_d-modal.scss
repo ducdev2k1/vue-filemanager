@@ -3,7 +3,6 @@
   bottom: 0;
   backdrop-filter: blur(5px);
 }
-
 .c-dialog {
   width: 549px;
   max-width: 100%;
@@ -129,7 +128,6 @@
     }
   }
 }
-
 $overlay-bg: rgba(0, 0, 0, 0.5);
 
 .d-modal {
@@ -146,6 +144,12 @@ $overlay-bg: rgba(0, 0, 0, 0.5);
   height: 100%;
   * {
     color: var(--color-text);
+  }
+  &-header {
+    h3 {
+      color: var(--color-title);
+      font-weight: 600;
+    }
   }
 
   &-overlay {

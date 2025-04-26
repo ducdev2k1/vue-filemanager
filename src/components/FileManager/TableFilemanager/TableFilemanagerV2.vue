@@ -174,7 +174,12 @@
               <th v-if="showCheckbox" class="text-center" style="width: 50px">
                 <DCheckbox @click.stop="selectAllItems" :model-value="selectedItems.length === dataTable.length" />
               </th>
-              <th v-for="header in headerTable" :key="header.key" :width="header.width" :height="rowHeight">
+              <th
+                v-for="header in headerTable"
+                :key="header.key"
+                :width="header.width"
+                :height="rowHeight"
+                :class="header.align">
                 {{ header.title }}
               </th>
             </tr>
@@ -219,7 +224,12 @@
                     :model-value="isItemSelected(item)" />
                 </td>
                 <!-- Data cells -->
-                <td v-for="header in headerTable" :key="header.key" class="d-table-virtual__cell" :width="header.width">
+                <td
+                  v-for="header in headerTable"
+                  :key="header.key"
+                  class="d-table-virtual__cell"
+                  :class="header.align"
+                  :width="header.width">
                   <slot
                     v-if="$slots[`item.${header.key}`]"
                     :name="`item.${header.key}`"

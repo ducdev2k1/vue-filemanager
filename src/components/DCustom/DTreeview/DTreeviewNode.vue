@@ -1,70 +1,27 @@
-<template>
-  <li>
-    <div
-      class="flex items-center gap-1 cursor-pointer"
-      :class="[{ [activeClass || 'active']: isActive }]"
-      @click="handleClick"
-      v-bind="nodeProps">
-      <span v-if="hasChildren" @click.stop="toggle">
-        {{ isOpen ? '📂' : '📁' }}
-      </span>
-      <span v-else>📄</span>
-
-      <slot name="prepend" :item="node" :isOpen="isOpen" />
-
-      <span>{{ node[itemTitle] }}</span>
-    </div>
-
-    <ul v-if="isOpen && node.children?.length" class="pl-4">
-      <TreeNode
-        v-for="child in node.children"
-        :key="getValue(child)"
-        :node="child"
-        :item-title="itemTitle"
-        :item-value="itemValue"
-        :item-props="itemProps"
-        :load-children="loadChildren"
-        :open-nodes="openNodes"
-        :active-node="activeNode"
-        :activatable="activatable"
-        :active-class="activeClass"
-        @toggle="$emit('toggle', $event)"
-        @activate="$emit('activate', $event)">
-        <template #prepend="slotProps">
-          <slot name="prepend" v-bind="slotProps" />
-        </template>
-      </TreeNode>
-    </ul>
-  </li>
-</template>
-
 <script setup lang="ts">
-  import { computed, ref } from 'vue';
-  import type { TreeNodeData } from './CustomTreeView.vue';
+  import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
+  import { ITreeNodeData } from '@/interfaces';
+  import { ITreeViewProps } from './DTreeview.vue';
 
-  const props = defineProps<{
-    node: TreeNodeData;
-    itemTitle?: string;
-    itemValue?: string;
-    itemProps?: (item: TreeNodeData) => Record<string, any>;
-    loadChildren?: (item: TreeNodeData) => Promise<TreeNodeData[]>;
+  interface ITreeviewNodeProps extends ITreeViewProps {
+    node: ITreeNodeData;
     openNodes: Set<string>;
     activeNode: string[];
-    activatable?: boolean;
-    activeClass?: string;
-  }>();
+  }
 
-  const emit = defineEmits<{
-    (e: 'toggle', id: string): void;
-    (e: 'activate', id: string): void;
-  }>();
+  const props = withDefaults(defineProps<ITreeviewNodeProps>(), {
+    itemTitle: 'name',
+    itemValue: 'path',
+    multiple: false,
+  });
 
+  const emit = defineEmits(['toggle', 'activate']);
   const isLoading = ref(false);
 
-  const getValue = (item: TreeNodeData): string => (props.itemValue ? item[props.itemValue] : item.id);
+  const getValue = (item: ITreeNodeData): string => (props.itemValue ? item[props.itemValue] : item[props.itemTitle]);
 
   const isOpen = computed(() => props.openNodes.has(getValue(props.node)));
-  const isActive = computed(() => props.activeNode.includes(getValue(props.node)));
+  const isActive = computed(() => props.activeNode.length > 0 && props.activeNode.includes(getValue(props.node)));
   const hasChildren = computed(() => props.node.children?.length || props.node.hasChildren);
 
   const toggle = async () => {
@@ -78,63 +35,61 @@
     emit('toggle', id);
   };
 
-  const handleClick = () => {
+  const handleClick = (node: ITreeNodeData) => {
     if (props.activatable) {
-      emit('activate', getValue(props.node));
+      emit('activate', getValue(node));
     }
   };
 
   const nodeProps = computed(() => (props.itemProps ? props.itemProps(props.node) : {}));
 </script>
 
-<style scoped lang="scss">
-  li {
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
+<template>
+  <li class="d-treeview-item">
+    <div
+      class="d-treeview-item-content"
+      :class="[{ [activeClass || 'active']: isActive }]"
+      @click="handleClick(node)"
+      v-bind="nodeProps">
+      <div class="d-treeview-item--prepend">
+        <!-- Checkbox cho chế độ chọn nhiều -->
+        <input
+          v-if="multiple"
+          type="checkbox"
+          :checked="isActive"
+          @click.stop="handleClick(node)"
+          class="d-treeview-checkbox" />
+        <CircularLoader v-if="isLoading" :strokeWidth="2" width="20px" />
+        <DBtnIcon v-else :icon="isOpen ? MdiWebfont['menu-down'] : MdiWebfont['menu-right']" @click.stop="toggle" />
+        <slot name="prepend" :item="node" :isOpen="isOpen">
+          <span v-if="!$slots.prepend" @click.stop="toggle">
+            {{ isOpen ? '📂' : '📁' }}
+          </span>
+        </slot>
+      </div>
 
-    &.active {
-      background-color: #e0f7fa;
-    }
+      <span>{{ node[itemTitle] }}</span>
+    </div>
 
-    .flex {
-      display: flex;
-      align-items: center;
-    }
-
-    .cursor-pointer {
-      cursor: pointer;
-    }
-
-    .hover\:bg-gray-100 {
-      &:hover {
-        background-color: #f7fafc;
-      }
-    }
-
-    .rounded {
-      border-radius: 4px;
-    }
-
-    .pl-4 {
-      padding-left: 16px;
-    }
-
-    .px-1 {
-      padding-left: 4px;
-      padding-right: 4px;
-    }
-
-    .gap-1 {
-      gap: 4px;
-    }
-
-    .items-center {
-      justify-content: center;
-    }
-
-    .active {
-      background-color: #d3f9f7;
-    }
-  }
-</style>
+    <ul v-if="isOpen && hasChildren" class="d-treeview-list">
+      <DTreeviewNode
+        v-for="child in node.children"
+        :key="getValue(child)"
+        :node="child"
+        :item-title="itemTitle"
+        :item-value="itemValue"
+        :item-props="itemProps"
+        :load-children="loadChildren"
+        :open-nodes="openNodes"
+        :active-node="activeNode"
+        :activatable="activatable"
+        :active-class="activeClass"
+        @toggle="$emit('toggle', $event)"
+        @activate="$emit('activate', $event)">
+        <template #prepend="slotProps: any">
+          <slot name="prepend" v-bind="slotProps" />
+        </template>
+      </DTreeviewNode>
+    </ul>
+  </li>
+</template>

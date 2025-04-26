@@ -42,7 +42,7 @@
 
 <template>
   <teleport to="body">
-    <div v-if="modelValue" class="d-modal">
+    <div v-if="modelValue" class="d-modal" v-bind="$attrs">
       <!-- Overlay -->
       <div
         class="d-modal-overlay"
@@ -71,6 +71,10 @@
           <!-- Default content slot -->
           <div class="d-modal-content" :class="{ 'd-modal-content--fullscreen': fullscreen }">
             <slot></slot>
+          </div>
+          <!-- Default footer slot -->
+          <div class="d-modal-footer" v-if="$slots.footer">
+            <slot name="footer"></slot>
           </div>
         </div>
       </div>

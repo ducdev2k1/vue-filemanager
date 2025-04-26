@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { columnsDefault } from '@/components/FileManager/partial/ConfigFileManager';
+  import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
   import { demoDataFilemanager } from '@/data/DemoDataFilemanager';
   import { IActionFM, IColumnFileManger } from '@/interfaces';
   import { IFileManager } from '@/interfaces/IFileManager';
@@ -103,6 +104,11 @@
     positionContextMenu.value = { x: event.clientX, y: event.clientY };
   };
 
+  const actionClickBtnShowContextMenu = (event: MouseEvent, item: IFileManager) => {
+    selectedOneItem.value = item;
+    handleShowContextMenu(event, true);
+  };
+
   const actionBreadCrumbClick = ({ data, refresh }: { data?: IFileManager; refresh?: boolean }) => {
     if (refresh) {
       props.onClickBreadcrumb && props.onClickBreadcrumb({ refresh: true });
@@ -119,7 +125,7 @@
       if (newVal === 'dark') {
         html.classList.add('fm_dark');
       } else {
-        html.classList.add('light');
+        html.classList.add('fm_light');
       }
     },
     {
@@ -187,6 +193,10 @@
       </template>
       <template #item.lastModified="{ value }" v-if="!$slots['item.lastModified']">
         <ColumnDateModified :data-row="value" :format="dateFormat" />
+      </template>
+
+      <template #item.groupActions="{ item }" v-if="!$slots['item.groupActions']">
+        <DBtnIcon :icon="MdiWebfont['dots-vertical']" @click="actionClickBtnShowContextMenu($event, item)" />
       </template>
 
       <template #no-data.table v-if="$slots['no-data']">

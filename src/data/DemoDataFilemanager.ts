@@ -7983,18 +7983,37 @@ export const demoDataFilemanager = [
 
 export const demoDateTreeFolder: ITreeFolder[] = [
   {
-    name: 'PineTools.com_files',
-    path: 'PineTools.com_files/',
+    name: 'Documents',
+    path: 'Documents/',
     children: [
       {
-        name: 'PineTools.com_files 1',
-        path: 'PineTools.com_files 1/',
+        name: 'Projects',
+        path: 'Documents/Projects/',
+        children: [
+          {
+            name: 'WebApp',
+            path: 'Documents/Projects/WebApp/',
+            children: [
+              {
+                name: 'WebApp 1',
+                path: 'Documents/Projects/WebApp/WebApp 1/',
+                children: [],
+              },
+            ],
+          },
+        ],
       },
     ],
   },
   {
-    name: 'Telegram Desktop',
-    path: 'Telegram Desktop/',
-    children: [],
+    name: 'Downloads',
+    path: 'Downloads/',
+    children: [
+      {
+        name: 'Images',
+        path: 'Downloads/Images/',
+        children: [],
+      },
+    ],
   },
 ];

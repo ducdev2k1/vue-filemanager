@@ -87,6 +87,7 @@
     background-color: var(--color-error);
 
     *,
+    span,
     i.mdi::before {
       color: var(--color-white);
     }

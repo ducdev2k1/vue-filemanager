@@ -1,48 +1,27 @@
-<template>
-  <ul class="d-treeview">
-    <DTreeviewNode
-      v-for="item in items"
-      :key="getValue(item)"
-      :node="item"
-      :item-title="itemTitle"
-      :item-value="itemValue"
-      :item-props="itemProps"
-      :load-children="loadChildren"
-      :open-nodes="openNodes"
-      :active-node="activated"
-      :activatable="activatable"
-      :active-class="activeClass"
-      @toggle="toggleNode"
-      @activate="handleActivate">
-      <template #prepend="slotProps">
-        <slot name="prepend" v-bind="slotProps" />
-      </template>
-    </DTreeviewNode>
-  </ul>
-</template>
-
 <script setup lang="ts">
-  export interface TreeNodeData {
-    [key: string]: any;
-  }
+  import { ITreeNodeData } from '@/interfaces';
 
-  const props = defineProps<{
-    items: TreeNodeData[];
+  export interface ITreeViewProps {
     itemTitle?: string;
     itemValue?: string;
-    itemProps?: (item: TreeNodeData) => Record<string, any>;
+    itemProps?: (item: ITreeNodeData) => Record<string, any>;
+    loadChildren?: (item: ITreeNodeData) => Promise<void>;
     activatable?: boolean;
     activeClass?: string;
-    loadChildren?: (item: TreeNodeData) => Promise<TreeNodeData[]>;
-    modelValue?: string[]; // v-model:activated
-  }>();
+    modelValue?: string[];
+    items?: ITreeNodeData[];
+    multiple?: boolean;
+  }
 
-  const emit = defineEmits<{
-    (e: 'update:modelValue', value: string[]): void;
-  }>();
+  const props = withDefaults(defineProps<ITreeViewProps>(), {
+    itemTitle: 'name',
+    itemValue: 'path',
+    multiple: false,
+  });
+
+  const emit = defineEmits(['update:activated', 'toggle']);
 
   const openNodes = ref<Set<string>>(new Set());
-
   const activated = ref<string[]>(props.modelValue ?? []);
 
   watch(
@@ -52,7 +31,7 @@
     },
   );
 
-  const getValue = (item: TreeNodeData): string => (props.itemValue ? item[props.itemValue] : item.id);
+  const getValue = (item: ITreeNodeData): string => (props.itemValue ? item[props.itemValue] : item.id);
 
   const toggleNode = (id: string) => {
     if (openNodes.value.has(id)) {
@@ -62,69 +41,42 @@
     }
   };
 
-  const handleActivate = (id: string) => {
-    activated.value = [id];
-    emit('update:modelValue', activated.value);
+  const handleActivate = (item: string) => {
+    if (props.multiple) {
+      // Chế độ chọn nhiều: Thêm hoặc xóa item khỏi activated
+      const index = activated.value.indexOf(item);
+      index === -1
+        ? (activated.value = [...activated.value, item])
+        : (activated.value = activated.value.filter((id) => id !== item));
+    } else {
+      item === activated.value[0] ? (activated.value = []) : (activated.value = [item]);
+    }
+    emit('update:activated', activated.value);
   };
 </script>
 
-<style scoped lang="scss">
-  .d-treeview {
-    list-style-type: none;
-    padding-left: 0;
-    margin: 0;
-    max-height: 600px;
-    min-height: 240px;
-    overflow-y: auto;
-
-    li {
-      padding-left: 20px;
-      display: flex;
-      flex-direction: column;
-
-      &.active {
-        background-color: #e0f7fa;
-      }
-
-      .flex {
-        display: flex;
-        align-items: center;
-      }
-
-      .cursor-pointer {
-        cursor: pointer;
-      }
-
-      .hover\:bg-gray-100 {
-        &:hover {
-          background-color: #f7fafc;
-        }
-      }
-
-      .rounded {
-        border-radius: 4px;
-      }
-
-      .pl-4 {
-        padding-left: 16px;
-      }
-
-      .px-1 {
-        padding-left: 4px;
-        padding-right: 4px;
-      }
-
-      .gap-1 {
-        gap: 4px;
-      }
-
-      .items-center {
-        justify-content: center;
-      }
-
-      .active {
-        background-color: #d3f9f7;
-      }
-    }
-  }
-</style>
+<template>
+  <div class="d-treeview">
+    <ul class="d-treeview-list">
+      <DTreeviewNode
+        v-for="item in items"
+        :key="getValue(item)"
+        :node="item"
+        :multiple="multiple"
+        :item-title="itemTitle"
+        :item-value="itemValue"
+        :item-props="itemProps"
+        :load-children="loadChildren"
+        :open-nodes="openNodes"
+        :active-node="activated"
+        :activatable="activatable"
+        :active-class="activeClass"
+        @toggle="toggleNode"
+        @activate="handleActivate">
+        <template #prepend="slotProps">
+          <slot name="prepend" v-bind="slotProps" />
+        </template>
+      </DTreeviewNode>
+    </ul>
+  </div>
+</template>
