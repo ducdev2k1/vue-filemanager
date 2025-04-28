@@ -90,6 +90,10 @@
 </script>
 
 <template>
+  <Avatar>
+    <AvatarImage src="https://github.com/unovue.png" alt="@unovue" />
+    <AvatarFallback>CN</AvatarFallback>
+  </Avatar>
   <div class="h-screen">
     <FileManager
       text-bread="Demo"

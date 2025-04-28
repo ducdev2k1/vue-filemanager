@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { useTableFilemanager } from '@/components/FileManager/TableFilemanager/useTableFilemanager';
-  import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
-  import { IFileManager } from '@/interfaces/IFileManager';
-  import { t } from '@/plugins/i18n';
-  import { EnumLocalStorageKey, EnumViewModeFm } from '@/utils/MyEnum';
-  import { addEventKeyDown } from '@/utils/MyFunction';
-  import { useStorage } from '@vueuse/core';
+import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
+import { IFileManager } from '@/interfaces/IFileManager';
+import { t } from '@/plugins/i18n';
+import { EnumLocalStorageKey, EnumViewModeFm } from '@/utils/MyEnum';
+import { addEventKeyDown } from '@/utils/MyFunction';
+import { useStorage } from '@vueuse/core';
 
   defineOptions({
     inheritAttrs: false,
@@ -166,7 +166,6 @@
     </template>
 
     <div ref="tableRef" class="d-table-virtual">
-      <!-- Table header -->
       <div class="d-table-virtual__header">
         <table style="table-layout: fixed; width: 100%">
           <thead>
@@ -187,12 +186,9 @@
         </table>
       </div>
 
-      <!-- Table body with virtual scrolling -->
       <div ref="tableBodyRef" class="d-table-virtual__body" :style="{ height: heightTable }" @scroll="handleScroll">
-        <!-- Spacer for virtual scrolling -->
         <div class="d-table-virtual__spacer" :style="{ height: `${totalHeightVirtual}px` }"></div>
 
-        <!-- Visible rows -->
         <div class="d-table-virtual__visible-rows" :style="{ transform: `translateY(${offsetY}px)` }">
           <table class="w-full" style="table-layout: fixed">
             <tbody>
@@ -216,14 +212,12 @@
                 @mousedown="startSelection($event, item)"
                 @mousemove="updateSelection($event, item)"
                 @mouseup="stopSelection">
-                <!-- Checkbox -->
                 <td v-if="showCheckbox" class="d-table-virtual__cell text-center" style="width: 50px">
                   <DCheckbox
                     hide-details
                     @click.stop="handleCheckboxClick($event, item)"
                     :model-value="isItemSelected(item)" />
                 </td>
-                <!-- Data cells -->
                 <td
                   v-for="header in headerTable"
                   :key="header.key"
@@ -241,9 +235,12 @@
           </table>
         </div>
 
-        <!-- No data content -->
         <div v-if="dataTable.length === 0 && $slots['no-data.table']" class="d-table-virtual__no-data">
           <slot name="no-data.table" />
+        </div>
+
+        <div class="d-data-table-virtual__body--loading">
+          <d-progress-linear indeterminate />
         </div>
       </div>
     </div>

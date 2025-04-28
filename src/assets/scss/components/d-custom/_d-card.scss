@@ -9,6 +9,13 @@ $d-card-spinner: #1976d2;
   border-radius: 4px;
   overflow: hidden;
   transition: all 0.2s ease;
+  position: relative;
+  &--loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 
   &--flat {
     box-shadow: none;
@@ -41,10 +48,6 @@ $d-card-spinner: #1976d2;
 
   &--disabled {
     opacity: 0.5;
-  }
-
-  &--loading {
-    position: relative;
   }
 
   .d-card-loading-overlay {

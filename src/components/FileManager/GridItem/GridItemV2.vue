@@ -97,6 +97,7 @@
             @mousemove="updateSelection($event, file)"
             @mouseup="stopSelection"
             @touchmove.prevent
+            :loading="true"
             class="c-grid_card pa-3 d-flex flex-column align-center text-center noselect">
             <slot v-if="$slots['contentGidItem']" name="contentGidItem" />
             <template v-else>
@@ -116,8 +117,9 @@
                     :disabled="selectedItems.length > 1"></DBtn>
                 </span>
               </div>
-
-              <d-icon :icon="getThumbnailIcon(file)" size="32" />
+              <div>
+                <d-icon :icon="getThumbnailIcon(file)" size="152" />
+              </div>
 
               <div class="c-grid_box_footer">
                 <AvatarInitials :full-name="file.owner.account" size="32" />
@@ -143,12 +145,6 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-  }
-
-  .c-grid_wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
   }
 
   .scroller {

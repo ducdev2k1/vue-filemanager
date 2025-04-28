@@ -16,14 +16,12 @@
 </script>
 
 <template>
-  <span
+  <i
     v-bind="$attrs"
-    class="d-icon"
-    :class="{ 'd-icon--disabled': disabled }"
-    :style="{ color, fontSize: size ? `${size}px` : undefined }"
-    @click="emit('click')">
-    <i class="mdi" :class="icon" />
-  </span>
+    class="d-icon mdi"
+    :class="[{ 'd-icon--disabled': disabled }, icon]"
+    @click="emit('click')"
+    :style="{ height: `${size}px`, color, fontSize: size ? `${size}px` : undefined }" />
 </template>
 
 <style scoped lang="scss">

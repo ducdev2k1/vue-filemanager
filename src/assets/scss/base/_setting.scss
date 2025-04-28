@@ -77,10 +77,7 @@ $textLinkHover: var(--color-primary);
   i.mdi {
     font-size: 18px;
     line-height: 24px;
-
-    &::before {
-      color: var(--color-text);
-    }
+    color: var(--color-text);
   }
 }
 

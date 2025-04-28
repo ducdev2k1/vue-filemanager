@@ -175,7 +175,6 @@
     </template>
 
     <div ref="tableRef" class="d-data-table-virtual">
-      <!-- Table header -->
       <div class="d-data-table-virtual__header">
         <table class="w-full">
           <thead>
@@ -191,16 +190,13 @@
         </table>
       </div>
 
-      <!-- Table body with virtual scrolling -->
       <div
         ref="tableBodyRef"
         class="d-data-table-virtual__body"
         :style="{ height: heightTable }"
         @scroll="handleScroll">
-        <!-- Spacer for virtual scrolling -->
         <div class="d-data-table-virtual__spacer" :style="{ height: `${totalHeight}px` }"></div>
 
-        <!-- Visible rows -->
         <div class="d-data-table-virtual__visible-rows" :style="{ transform: `translateY(${offsetY}px)` }">
           <template v-for="(item, localIndex) in visibleItems" :key="item.key">
             <div
@@ -245,9 +241,12 @@
           </template>
         </div>
 
-        <!-- No data content -->
         <div v-if="dataTable.length === 0 && $slots['no-data.table']" class="d-data-table-virtual__no-data">
           <slot name="no-data.table" />
+        </div>
+
+        <div class="d-data-table-virtual__body--loading">
+          <d-progress-linear indeterminate />
         </div>
       </div>
     </div>
