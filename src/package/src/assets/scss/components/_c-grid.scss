@@ -1,0 +1,119 @@
+.c-grid {
+  height: calc(100% - 120px);
+  * {
+    color: var(--color-text);
+  }
+  &_wrap {
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-animation: fade-in 0.5s forwards;
+    animation: fade-in 0.5s forwards;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(289px, 1fr));
+    margin: 0;
+  }
+  .v-virtual-scroll__item {
+    margin-bottom: 24px;
+  }
+  .v-virtual-scroll {
+    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  &_box {
+    position: relative;
+    &:hover {
+      .c-grid {
+        &_button {
+          opacity: 1;
+        }
+        &_card {
+          box-shadow: var(--shadow);
+        }
+      }
+    }
+    &_head {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 5px;
+      width: 100%;
+    }
+    &_footer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      gap: 10px;
+      p {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        text-align: left;
+      }
+    }
+  }
+  &_card {
+    background: var(--color-app-content);
+    box-shadow: none;
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-2xl);
+
+    .v-img__img {
+      padding: 0.25rem /* 4px */;
+    }
+
+    @apply dark:bg-drive-dark-900;
+    @apply hover:shadow-drive-i-hover;
+    .c-grid_box_head {
+      width: 100%;
+      .line-clamp-1 {
+        flex-grow: 1;
+      }
+    }
+  }
+  &_button {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    opacity: 0;
+  }
+  &_content {
+    margin-top: 0.2rem;
+    text-align: center;
+  }
+
+  .v-virtual-scroll {
+    .v-card {
+      @apply shadow-md;
+      @apply dark:bg-drive-dark-900;
+      @apply hover:shadow-drive-i-hover hover:transition-all;
+      .c-grid_box_head {
+        @apply w-full;
+        .line-clamp-1 {
+          @apply grow;
+        }
+      }
+      &.bg-selected {
+        @apply shadow-drive-i-hover;
+      }
+    }
+  }
+
+  @include brSpLandscape {
+    padding: 0 10px;
+    height: calc(100% - 48px);
+    &_wrap {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+    }
+    .v-virtual-scroll__item {
+      margin-bottom: 16px;
+    }
+  }
+}

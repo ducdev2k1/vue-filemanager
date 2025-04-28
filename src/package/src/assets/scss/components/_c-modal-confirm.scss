@@ -1,0 +1,73 @@
+/// modal confirm
+.c-modal-confirm {
+  .c-dialog_gr-action {
+    &::after {
+      display: none !important;
+    }
+  }
+
+  &_icon {
+    &.error {
+      * {
+        color: var(--color-error);
+      }
+    }
+
+    &.success {
+      * {
+        color: var(--color-success);
+      }
+    }
+
+    &.warning {
+      * {
+        color: var(--color-warning);
+      }
+    }
+
+    &.info {
+      * {
+        color: var(--color-info);
+      }
+    }
+  }
+
+  &_content {
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .desc {
+      font-size: 14px;
+    }
+  }
+
+  &_title {
+    font-size: 18px;
+    @apply flex items-center gap-1;
+  }
+
+  &_delete {
+    .c-modal-confirm_title {
+      color: var(--color-danger);
+    }
+
+    .d-list {
+      background: transparent !important;
+    }
+    .d-icon {
+      i.mdi {
+        font-size: 26px;
+      }
+    }
+    &-content {
+      .desc {
+        @apply leading-[20px];
+        &.permanently {
+        }
+      }
+    }
+  }
+}

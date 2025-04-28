@@ -37,3 +37,4 @@ yarn.lock
 public/assets/pdf-image
 
 dev-dist
+dist-demo

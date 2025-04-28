@@ -5,7 +5,7 @@
  */
 
 // Plugins
-import pinia from '../stores';
+// import pinia from '../stores';
 // import vuetify from './vuetify';
 
 // Types
@@ -18,7 +18,7 @@ export function registerPlugins(app: App) {
   app
     // .use(vuetify)
     // .use(router)
-    .use(pinia)
+    // .use(pinia)
     .use(i18n)
     .use(Vue3Toastify, {
       autoClose: 3000,

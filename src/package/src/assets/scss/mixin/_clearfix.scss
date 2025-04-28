@@ -1,0 +1,42 @@
+// ----------------------------------------------------------------------
+// clearfix
+// ----------------------------------------------------------------------
+
+// @extend %clear; Clear floats with code and group using a placeholder selector
+
+/*----------------------------------------
+	clearfix
+----------------------------------------*/
+@mixin clear {
+	&:after {
+		content: "";
+		clear: both;
+		height: 0;
+		display: block;
+		visibility: hidden;
+	}
+}
+
+%clear {
+	@include clear;
+}
+
+@mixin clearfixBase {
+	.clearfix {
+		@if $legacy-support-for-ie7 {
+			min-height: 1px;
+		}
+
+		@if $legacy-support-for-ie6 {
+			_height: 1%;
+		}
+
+		&:after {
+			content: "";
+			clear: both;
+			height: 0;
+			display: block;
+			visibility: hidden;
+		}
+	}
+}

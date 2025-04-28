@@ -1,0 +1,16 @@
+.c-breadcrumbs {
+  .c-btn {
+    &.active {
+      pointer-events: none;
+      * {
+        color: var(--color-text-85);
+      }
+      i.mdi::before {
+        color: var(--color-text-85);
+      }
+    }
+  }
+  .v-breadcrumbs-divider {
+    padding: 0;
+  }
+}

@@ -1,0 +1,17 @@
+.d-input-addon {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+
+  &_left,
+  &_right,
+  &_center {
+    display: flex;
+    align-items: center;
+  }
+
+  &_center {
+    flex: 1;
+  }
+}
+

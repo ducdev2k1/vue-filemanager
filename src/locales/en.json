@@ -68,8 +68,10 @@
     "file": "File",
     "folder": "Folder",
     "grid": "Grid",
+    "have": "have",
     "move_to": "Move to",
     "ok": "Ok",
+    "other_operations": "Other operations",
     "paste": "Paste",
     "permanently_delete": "Permanently delete",
     "permanently_delete_content": "These files will be permanently deleted and you cannot recover them.",
@@ -77,6 +79,8 @@
     "rename": "Rename",
     "required": "Required",
     "selected": "Selected",
-    "trash": "Trash bin"
+    "trash": "Trash bin",
+    "undefined": "Undefined",
+    "you": "You"
   }
 }

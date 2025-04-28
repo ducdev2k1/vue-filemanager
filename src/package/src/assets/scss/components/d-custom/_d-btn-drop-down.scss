@@ -1,0 +1,34 @@
+.d-btn-drop-down {
+  @apply relative;
+  &-content {
+    position: absolute;
+    z-index: 100;
+    top: 100%;
+    left: 0;
+    width: fit-content;
+    display: none;
+    animation: alternate-fade-in 0.5s forwards;
+  }
+
+  &:hover {
+    .d-btn-drop-down-content {
+      display: block;
+    }
+  }
+  &--open {
+    .d-btn-drop-down-content {
+      display: block;
+    }
+  }
+}
+
+@keyframes alternate-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
