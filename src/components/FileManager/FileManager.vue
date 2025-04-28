@@ -159,11 +159,8 @@
       </template>
     </ToolbarFilemanager>
 
-    <!--  B: Slot này dùng để chèn UI/UX mở rộng cần thiết -->
     <slot v-if="$slots['toolbar-bottom']" name="toolbar-bottom" v-bind="{ data: dataFilemanger }"></slot>
-    <!--  E: Slot này dùng để chèn UI/UX mở rộng cần thiết -->
 
-    <!---B: FILE MANAGER ---->
     <TableFilemanager
       v-bind="$attrs"
       v-model="selectedItems"
@@ -211,20 +208,13 @@
     </TableFilemanager>
 
     <template v-else-if="viewFM === EnumViewModeFm.thumbnails">
-      <GridItemV2
+      <GridItem
         :loading="loading"
         :list-data="dataFilemanger"
         @load="emits('scroll')"
         @double-click="props.doubleClickRow" />
     </template>
-    <!-- :is-loading-more="isLoadingMore" -->
 
-    <!---E: FILE MANAGER ---->
-
-    <!---B: ContextMenu MOBILE--->
-    <!-- <ContextMenu >
-      <slot v-if="$slots['context-menu']" name="context-menu" />
-    </ContextMenu> -->
     <ContextMenu
       v-if="showContextMenu"
       :items="contextMenuOptions"

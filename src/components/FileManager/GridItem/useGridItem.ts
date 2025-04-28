@@ -17,6 +17,7 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
   const offsetWidth = ref(0);
   const offsetHeight = ref('57vh');
   const CARD_WIDTH = computed(() => (width.value > breakPoint.brTablet ? 304 : 150));
+  const isMobile = computed(() => width.value <= breakPoint.brSpLandscape);
   const resizeObserver = ref<ResizeObserver | null>(null);
 
   // Selection related refs
@@ -244,6 +245,7 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
     selectedItems,
     objectSelectedOne,
     listItemDelete,
+    isMobile,
 
     // Methods
     handleTouchStart,

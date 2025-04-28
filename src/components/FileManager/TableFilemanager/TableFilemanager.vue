@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { useTableFilemanager } from '@/components/FileManager/TableFilemanager/useTableFilemanager';
-import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
-import { IFileManager } from '@/interfaces/IFileManager';
-import { t } from '@/plugins/i18n';
-import { EnumLocalStorageKey, EnumViewModeFm } from '@/utils/MyEnum';
-import { addEventKeyDown } from '@/utils/MyFunction';
-import { useStorage } from '@vueuse/core';
+  import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
+  import { IFileManager } from '@/interfaces/IFileManager';
+  import { t } from '@/plugins/i18n';
+  import { EnumLocalStorageKey, EnumViewModeFm } from '@/utils/MyEnum';
+  import { addEventKeyDown } from '@/utils/MyFunction';
+  import { useStorage } from '@vueuse/core';
 
   defineOptions({
     inheritAttrs: false,
@@ -123,20 +123,20 @@ import { useStorage } from '@vueuse/core';
     }
   });
 
-  const scrollToIndex = (index: number) => {
-    if (tableBodyRef.value) {
-      tableBodyRef.value.scrollTop = index * rowHeight.value;
-    }
-  };
+  // const scrollToIndex = (index: number) => {
+  //   if (tableBodyRef.value) {
+  //     tableBodyRef.value.scrollTop = index * rowHeight.value;
+  //   }
+  // };
 
-  const getRowStyle = (index: number) => {
-    return {
-      position: 'absolute',
-      top: `${(startIndexVirtual.value + index) * rowHeight.value}px`,
-      height: `${rowHeight.value}px`,
-      width: '100%',
-    };
-  };
+  // const getRowStyle = (index: number) => {
+  //   return {
+  //     position: 'absolute',
+  //     top: `${(startIndexVirtual.value + index) * rowHeight.value}px`,
+  //     height: `${rowHeight.value}px`,
+  //     width: '100%',
+  //   };
+  // };
 
   onUnmounted(() => {
     // Cleanup if needed

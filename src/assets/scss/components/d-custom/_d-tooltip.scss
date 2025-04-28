@@ -1,26 +1,20 @@
 .d-tooltip {
-  position: absolute;
-  top: 103%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(97, 97, 97, 0.9);
+  display: block;
+  position: fixed;
+  background-color: #333;
   color: white;
-  padding: 4px 8px;
+  padding: 5px 10px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 14px;
+  z-index: 9999;
   white-space: nowrap;
-  z-index: 999;
   pointer-events: none;
-  &::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) rotate(180deg);
-    border-width: 5px 5px 0 5px;
-    border-color: rgba(97, 97, 97, 0.9) transparent transparent transparent;
+  &-wrapper {
+    position: relative;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
   }
 }
