@@ -10,7 +10,6 @@ interface IEmitFunctions {
 }
 
 export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitFunctions) => {
-  // const route = useRoute();
   const { width } = useWindowSize();
 
   // Grid layout related refs
@@ -41,7 +40,7 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
   const updateOffsetWidth = () => {
     if (gridRef.value) {
       offsetWidth.value = gridRef.value.offsetWidth;
-      offsetHeight.value = (gridRef.value.offsetHeight - 100) as unknown as string;
+      offsetHeight.value = (gridRef.value.offsetHeight - 47) as unknown as string;
     }
   };
 

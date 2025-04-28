@@ -1,4 +1,8 @@
 <script setup lang="ts">
+  defineOptions({
+    inheritAttrs: false,
+  });
+
   const props = defineProps<{
     flat?: boolean;
     border?: boolean;
@@ -7,7 +11,6 @@
     hover?: boolean;
     loading?: boolean;
     theme?: string;
-    class?: string | string[] | object;
     style?: string | object;
   }>();
 
@@ -20,6 +23,7 @@
 
 <template>
   <div
+    v-bind="$attrs"
     class="d-card"
     :class="{
       'd-card--flat': flat,

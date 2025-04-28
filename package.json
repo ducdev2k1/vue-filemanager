@@ -46,17 +46,24 @@
     "vite-plugin-vuetify": "^2.0.4",
     "vue-eslint-parser": "^9.4.3",
     "vue-router": "^4.5.0",
-    "vue-tsc": "^2.1.10"
+    "vue-tsc": "^2.1.10",
+    "tsx": "^3.12.10"
   },
   "files": [
-    "dist-package"
+    "dist",
+    "dist-demo"
   ],
   "keywords": [
     "vue",
     "filemanager",
     "vue3 filemanager",
-    "filemanager vuetify",
-    "vue3"
+    "vue3",
+    "vueComponent",
+    "component",
+    "components",
+    "ui",
+    "framework",
+    "frontend"
   ],
   "repository": {
     "type": "git",

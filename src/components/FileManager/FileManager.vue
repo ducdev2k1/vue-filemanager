@@ -164,7 +164,7 @@
     <!--  E: Slot này dùng để chèn UI/UX mở rộng cần thiết -->
 
     <!---B: FILE MANAGER ---->
-    <TableFilemanagerV2
+    <TableFilemanager
       v-bind="$attrs"
       v-model="selectedItems"
       v-model:selectedOneItem="selectedOneItem"
@@ -208,7 +208,7 @@
       <template #no-data.table v-if="$slots['no-data']">
         <slot name="no-data" />
       </template>
-    </TableFilemanagerV2>
+    </TableFilemanager>
 
     <template v-else-if="viewFM === EnumViewModeFm.thumbnails">
       <GridItemV2

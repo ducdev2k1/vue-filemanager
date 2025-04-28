@@ -1,5 +1,5 @@
 .c-grid {
-  height: calc(100% - 120px);
+  height: calc(100%);
   * {
     color: var(--color-text);
   }
@@ -17,6 +17,7 @@
 
   &_box {
     position: relative;
+    @apply py-2;
     &:hover {
       .c-grid {
         &_button {
@@ -26,6 +27,9 @@
           box-shadow: var(--shadow);
         }
       }
+    }
+    &_thumbnail {
+      @apply flex items-center justify-center;
     }
     &_head {
       display: flex;
@@ -47,18 +51,17 @@
         text-align: left;
       }
     }
+
+    &_head,
+    &_thumbnail,
+    &_footer {
+      @apply px-2;
+    }
   }
   &_card {
     background: var(--color-app-content);
     box-shadow: none;
-    padding: 0.5rem;
-    border: 1px solid transparent;
-    border-radius: var(--border-radius-2xl);
-
-    .v-img__img {
-      padding: 0.25rem /* 4px */;
-    }
-
+    @apply py-2;
     @apply dark:bg-drive-dark-900;
     @apply hover:shadow-drive-i-hover;
     .c-grid_box_head {
@@ -66,6 +69,14 @@
       .line-clamp-1 {
         flex-grow: 1;
       }
+    }
+    &.bg-selected {
+      background: var(--color-hover-tr-table-active);
+    }
+    &:hover {
+      --tw-shadow: inset 0 0 0 4px var(--color-primary);
+      --tw-shadow-colored: inset 0 0 0 4px var(--tw-shadow-color);
+      box-shadow: var(--tw-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-shadow);
     }
   }
   &_button {
@@ -80,21 +91,8 @@
     text-align: center;
   }
 
-  .v-virtual-scroll {
-    .v-card {
-      @apply shadow-md;
-      @apply dark:bg-drive-dark-900;
-      @apply hover:shadow-drive-i-hover hover:transition-all;
-      .c-grid_box_head {
-        @apply w-full;
-        .line-clamp-1 {
-          @apply grow;
-        }
-      }
-      &.bg-selected {
-        @apply shadow-drive-i-hover;
-      }
-    }
+  .d-card {
+    border-radius: var(--border-radius-md);
   }
 
   @include brSpLandscape {

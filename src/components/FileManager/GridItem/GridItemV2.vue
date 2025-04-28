@@ -87,7 +87,8 @@
           <d-card
             v-for="(file, idx) in item"
             :key="idx"
-            :color="selectedItems.includes(file) || objectSelectedOne === file ? 'selected' : ''"
+            class="c-grid_card noselect"
+            :class="[selectedItems.includes(file) || objectSelectedOne === file ? 'bg-selected' : '']"
             @contextmenu.prevent="rightClickHandler($event, file)"
             @dblclick.prevent="handleDBClick($event, file)"
             @click.prevent="toggleItem($event, file)"
@@ -96,9 +97,7 @@
             @mousedown="startSelection($event, file)"
             @mousemove="updateSelection($event, file)"
             @mouseup="stopSelection"
-            @touchmove.prevent
-            :loading="true"
-            class="c-grid_card pa-3 d-flex flex-column align-center text-center noselect">
+            @touchmove.prevent>
             <slot v-if="$slots['contentGidItem']" name="contentGidItem" />
             <template v-else>
               <div class="c-grid_box_head">
@@ -117,7 +116,7 @@
                     :disabled="selectedItems.length > 1"></DBtn>
                 </span>
               </div>
-              <div>
+              <div class="c-grid_box_thumbnail">
                 <d-icon :icon="getThumbnailIcon(file)" size="152" />
               </div>
 
@@ -140,42 +139,4 @@
   </div>
 </template>
 
-<style scoped>
-  .c-grid {
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-  }
-
-  .scroller {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(5, 200px);
-    gap: 16px;
-    padding: 16px;
-    box-sizing: border-box;
-  }
-
-  .c-grid_card {
-    width: 200px;
-    height: 266px;
-    box-sizing: border-box;
-  }
-
-  .c-grid_box_head {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 8px;
-  }
-
-  .c-grid_box_footer {
-    margin-top: auto;
-    text-align: center;
-  }
-
-  .noselect {
-    user-select: none;
-  }
-</style>
+<style scoped></style>
