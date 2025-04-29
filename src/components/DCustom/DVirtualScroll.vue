@@ -2,11 +2,8 @@
   <div class="d-virtual-scroll" ref="scrollContainer" @scroll="handleScroll">
     <div class="d-virtual-scroll__spacer" :style="{ height: totalHeight + 'px' }">
       <div class="d-virtual-scroll__content" :style="{ transform: `translateY(${offset}px)` }">
-        <div
-          v-for="(group, index) in visibleItems"
-          :key="index"
-          class="d-virtual-scroll__item"
-          :style="{ height: itemHeight ? itemHeight + 'px' : 'auto' }">
+        <div v-for="(group, index) in visibleItems" :key="index" class="d-virtual-scroll__item">
+          <!-- :style="{ height: itemHeight ? itemHeight + 'px' : 'auto' }" -->
           <slot :item="group" :index="startIndex + index"></slot>
         </div>
       </div>

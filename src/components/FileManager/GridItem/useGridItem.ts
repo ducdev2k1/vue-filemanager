@@ -16,7 +16,7 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
   const gridRef = ref<HTMLElement | null>(null);
   const offsetWidth = ref(0);
   const offsetHeight = ref('57vh');
-  const CARD_WIDTH = computed(() => (width.value > breakPoint.brTablet ? 304 : 150));
+  const CARD_WIDTH = computed(() => (width.value > breakPoint.brTablet ? 305 : 150));
   const isMobile = computed(() => width.value <= breakPoint.brSpLandscape);
   const resizeObserver = ref<ResizeObserver | null>(null);
 

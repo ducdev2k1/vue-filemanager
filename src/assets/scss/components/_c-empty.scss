@@ -1,0 +1,46 @@
+.c-fm-empty {
+  width: 440px;
+  min-height: 348px;
+  max-width: 100%;
+  padding: var(--gap-block);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--color-app-content);
+  border-radius: var(--border-radius-2xl);
+
+  &.my-files {
+    border: 2px dashed var(--color-primary);
+  }
+
+  &_content {
+    p {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-style: normal;
+      line-height: 20px
+    }
+  }
+
+}
+
+.c-empty {
+  @apply flex flex-col gap-3 items-center justify-center;
+  &_button {
+    box-shadow: 0px 4px 8px 0px var(--ColorGbluepri60);
+    background: linear-gradient(180deg, #1683E1 0%, #0A6CCB 100%) !important;
+  }
+
+  &_title {
+    font-size: 22px;
+    line-height: 28px;
+    color: var(--color-text-85);
+  }
+
+  &_desc {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    color: var(--color-text-35);
+  }
+}

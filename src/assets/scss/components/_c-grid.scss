@@ -37,6 +37,9 @@
       justify-content: start;
       gap: 5px;
       width: 100%;
+      &_name-file {
+        @apply flex-1;
+      }
     }
     &_footer {
       width: 100%;

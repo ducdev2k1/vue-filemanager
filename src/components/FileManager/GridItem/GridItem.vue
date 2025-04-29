@@ -3,8 +3,8 @@
   import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
   import { IFileManager } from '@/interfaces/IFileManager';
   import { t } from '@/plugins/i18n';
+  import { EnumEmpty } from '@/utils/MyEnum';
   import { addEventKeyDown, formatDate } from '@/utils/MyFunction';
-  import { AvatarInitials } from '@ducdev2k1/avatar-initials';
 
   interface IProps {
     listData: IFileManager[];
@@ -16,7 +16,7 @@
   const props = withDefaults(defineProps<IProps>(), {
     loading: false,
     isLoadingMore: false,
-    virtualScrollHeightItem: 236,
+    virtualScrollHeightItem: 224,
   });
 
   // const route = useRoute();
@@ -53,12 +53,7 @@
     getThumbnailIcon,
   } = useGridItem(listData, emitFunctions);
 
-  const flatListData = computed(() => {
-    return groupedListData.value.flat();
-  });
-
   onMounted(() => {
-    console.log('flatListData.value :>> ', flatListData.value);
     setupGridItem();
     addEventKeyDown(keydownHandler);
   });
@@ -103,16 +98,14 @@
             <template v-else>
               <div class="c-grid_box_head">
                 <d-icon :icon="getThumbnailIcon(file)" size="32" />
-                <d-tooltip :content="file.name" position="center">
-                  <p class="text-three-dots">
-                    {{ file.name }}
-                  </p>
-                </d-tooltip>
+                <p class="c-grid_box_head_name-file text-three-dots" :title="file.name">
+                  {{ file.name }}
+                </p>
                 <span :title="t('locale.other_operations')">
                   <DBtn
-                    :icon-mdi="MdiWebfont['dots-vertical']"
+                    :icon="MdiWebfont['dots-vertical']"
                     @click.passive="rightClickHandler($event, file)"
-                    :disabled="selectedItems.length > 1"></DBtn>
+                    :disabled="selectedItems.length > 1" />
                 </span>
               </div>
               <div class="c-grid_box_thumbnail">
@@ -120,7 +113,6 @@
               </div>
 
               <div class="c-grid_box_footer">
-                <AvatarInitials :full-name="file.owner" size="32" />
                 <p class="line-clamp-1">
                   {{ `${t('locale.you')} ${t('locale.have')} ${t('locale.' + file.action).toLowerCase()}` }} •
                   {{ formatDate(file.lastModified, 'DD/MM/YYYY') }}
@@ -132,10 +124,8 @@
       </template>
     </d-virtual-scroll>
 
-    <!-- <Empty v-else :type-empty="EnumEmpty.no_data" hide-button /> -->
+    <Empty v-else :type-empty="EnumEmpty.no_data" hide-button />
 
     <CircularLoader v-if="isLoadingMore" />
   </div>
 </template>
-
-<style scoped></style>
