@@ -68,14 +68,24 @@
     "file": "Tập tin",
     "folder": "Thư mục",
     "grid": "Lưới",
+    "have": "đã",
     "move_to": "Di chuyển đến",
+    "noDataText": "Không có dữ liệu",
+    "no_data_desc": "Tất cả dữ liệu sẽ được hiển thị ở đây",
+    "no_data_search": "Không tìm thấy",
+    "no_data_search_desc": "Vui lòng kiểm tra lại từ khóa hoặc ký tự ở ô tìm kiếm và thử lại",
     "ok": "Đồng ý",
+    "other_operations": "Thao tác khác",
     "paste": "Dán",
     "permanently_delete": "Xóa vĩnh viễn",
     "permanently_delete_content": "Những tệp này sẽ bị xóa vĩnh viễn và bạn không thể khôi phục lại.",
     "remove": "Xóa",
     "rename": "Đổi tên",
+    "required": "Bắt buộc",
+    "select_add_new_button": "Chọn nút “Thêm mới”",
     "selected": "Đã chọn",
-    "trash": "Thùng rác"
+    "trash": "Thùng rác",
+    "undefined": "Không xác định",
+    "you": "Bạn"
   }
 }

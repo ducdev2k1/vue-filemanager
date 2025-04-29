@@ -1,0 +1,44 @@
+$indent-padding: 8px;
+.d-treeview {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+  max-height: 600px;
+  min-height: 240px;
+  overflow-y: auto;
+  * {
+    font-size: 16px;
+  }
+
+  &-list {
+  }
+  &-item {
+    border-radius: 4px;
+    cursor: pointer;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-left: 16px;
+    &-content {
+      @apply flex items-center gap-2 px-1;
+      border-radius: var(--border-radius);
+      min-height: 38px;
+      .d-treeview-list {
+        padding-left: calc((16px + var($indent-padding)) / 2) !important;
+      }
+      &:hover {
+        background: var(--color-sidebar-overlay);
+      }
+      &.active {
+        background: var(--color-sidebar-overlay);
+      }
+    }
+    &--prepend {
+      @apply flex items-center gap-1;
+      > .d-btn-icon {
+        min-width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+    }
+  }
+}

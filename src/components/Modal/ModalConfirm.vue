@@ -133,16 +133,16 @@
                     type="error"
                     :text="permanently ? t('locale.permanently_delete_content') : t('locale.delete_object_and_share')"
                     :btn-close="false" />
-                  <v-list class="mt-3">
-                    <v-list-item v-for="(file, index) in visibleFiles" :key="index" :title="file.name">
+                  <d-list class="mt-3">
+                    <d-list-item v-for="(file, index) in visibleFiles" :key="index" :title="file.name">
                       <template #prepend>
-                        <v-icon class="mr-2 text-[26px]" :class="getThumbnailIcon(file)" />
+                        <d-icon :icon="getThumbnailIcon(file)" />
                       </template>
-                    </v-list-item>
-                    <v-list-item
+                    </d-list-item>
+                    <d-list-item
                       v-if="hasRemainingFiles"
                       :title="`...${t('locale.data_remaining_file', { data: countRemainingFile })}`" />
-                  </v-list>
+                  </d-list>
                 </div>
               </template>
             </div>
@@ -157,17 +157,17 @@
       <template v-if="!$slots.actions">
         <template v-if="typeConfirm === EnumTypeConfirm.cancel">
           <DBtn
-            class="c-btn-primary mr-4"
+            class="d-btn-primary mr-4"
             :title="t('locale.data_resume', { data: t('locale.upload_custom').toLowerCase() })"
             :icon-mdi="MdiWebfont['cloud-upload-outline']"
             @click="emits('close')" />
 
-          <DBtn class="c-btn-danger" :title="t('locale.cancel_upload')" icon="X" @click="emits('submit')" />
+          <DBtn class="d-btn-danger" :title="t('locale.cancel_upload')" icon="X" @click="emits('submit')" />
         </template>
         <template v-else>
-          <DBtn :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
+          <DBtn class="d-btn-cancel" :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
           <DBtn
-            :class="[typeConfirm === EnumTypeConfirm.delete ? 'c-btn-danger' : 'c-btn-submit']"
+            :class="[typeConfirm === EnumTypeConfirm.delete ? 'd-btn-danger' : 'd-btn-submit']"
             :title="textBtnSubmit || titleButtonSubmit"
             :icon="
               MdiWebfont[

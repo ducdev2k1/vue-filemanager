@@ -1,22 +1,3 @@
-<template>
-  <div
-    class="d-list-item"
-    :class="{ 'd-list-item--selectable': selectable, 'd-list-item--active': active }"
-    @click="emit('click')">
-    <slot v-if="$slots['prepend']" name="prepend"></slot>
-    <d-icon v-else :icon="prependIcon" />
-
-    <div class="d-list-item-content">
-      <slot v-if="$slots['title']" name="title" />
-      <span v-else-if="title" class="d-list-item_title">{{ title }}</span>
-      <slot></slot>
-    </div>
-
-    <slot v-if="$slots['append']" name="append"></slot>
-    <d-icon v-else :icon="prependIcon" />
-  </div>
-</template>
-
 <script setup lang="ts">
   import { defineEmits, defineProps } from 'vue';
 
@@ -33,34 +14,24 @@
   }>();
 </script>
 
-<style scoped lang="scss">
-  $list-item-hover: rgba(0, 0, 0, 0.08);
-  $list-item-active: rgba(0, 0, 0, 0.12);
-  $primary-color: #1976d2;
+<template>
+  <div
+    class="d-list-item"
+    :class="{ 'd-list-item--selectable': selectable, 'd-list-item--active': active }"
+    @click="emit('click')">
+    <slot name="prepend">
+      <d-icon v-if="prependIcon" :icon="prependIcon" />
+    </slot>
 
-  .d-list-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    gap: 0.25rem;
+    <div class="d-list-item-content">
+      <slot v-if="$slots['title']" name="title" />
+      <span v-else-if="title" class="d-list-item_title">{{ title }}</span>
+      <slot></slot>
+    </div>
 
-    &:hover {
-      background: $list-item-hover;
-    }
+    <slot name="append">
+      <d-icon v-if="appendIcon" :icon="appendIcon" />
+    </slot>
+  </div>
+</template>
 
-    &--selectable {
-      &.d-list-item--active {
-        background: $list-item-active;
-        color: $primary-color;
-      }
-    }
-
-    .d-list-item-content {
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-  }
-</style>

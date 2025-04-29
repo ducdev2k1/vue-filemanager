@@ -1,10 +1,6 @@
-import { fmActionRestoreTrash } from '@/components/v1/FileManager/partial/ConfigActionFileManager';
-import { getThumbnailIcon } from '@/components/v1/FileManager/partial/HelperFunctionFileManager';
+import { getThumbnailIcon } from '@/components/FileManager/partial/HelperFunctionFileManager';
 import { IFileManager } from '@/interfaces/IFileManager';
-import { FileManagerActionStore } from '@/stores/user/file-manager-action-store';
-import { FileManagerStore } from '@/stores/user/file-manager-store';
-import { myRoute } from '@/utils/my-route';
-import { breakPoint } from '@/utils/my-variables';
+import { breakPoint } from '@/utils/MyVariables';
 import { useWindowSize } from '@vueuse/core';
 
 interface IEmitFunctions {
@@ -14,16 +10,14 @@ interface IEmitFunctions {
 }
 
 export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitFunctions) => {
-  const route = useRoute();
-  const fileManagerStore = FileManagerStore();
-  const fileManagerActionStore = FileManagerActionStore();
   const { width } = useWindowSize();
 
   // Grid layout related refs
   const gridRef = ref<HTMLElement | null>(null);
   const offsetWidth = ref(0);
   const offsetHeight = ref('57vh');
-  const CARD_WIDTH = computed(() => (width.value > breakPoint.brTablet ? 304 : 150));
+  const CARD_WIDTH = computed(() => (width.value > breakPoint.brTablet ? 305 : 150));
+  const isMobile = computed(() => width.value <= breakPoint.brSpLandscape);
   const resizeObserver = ref<ResizeObserver | null>(null);
 
   // Selection related refs
@@ -39,22 +33,15 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
   const previousScrollTop = ref(0);
 
   // Computed
-  const isHomePage = computed(() => myRoute.home === route.path);
-  const selectedItems = computed({
-    get: () => fileManagerStore.selectedItems,
-    set: (value: IFileManager[]) => fileManagerStore.actionSetSelectedItems(value),
-  });
-  const objectSelectedOne = computed({
-    get: () => fileManagerStore.objectSelectedOne,
-    set: (value: IFileManager) => fileManagerStore.actionSetObjectSelectedOne(value),
-  });
-  const listItemDelete = computed(() => fileManagerStore.listItemDelete);
+  const selectedItems = ref([] as IFileManager[]);
+  const objectSelectedOne = ref({} as IFileManager);
+  const listItemDelete = ref([] as IFileManager[]);
 
   // Update grid dimensions
   const updateOffsetWidth = () => {
     if (gridRef.value) {
       offsetWidth.value = gridRef.value.offsetWidth;
-      offsetHeight.value = (gridRef.value.offsetHeight - 100) as unknown as string;
+      offsetHeight.value = (gridRef.value.offsetHeight - 47) as unknown as string;
     }
   };
 
@@ -123,13 +110,13 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
     emits.load();
   };
 
-  const rightClickHandler = (event: any, file: IFileManager) => {
+  const rightClickHandler = (event: MouseEvent, file: IFileManager) => {
+    event.preventDefault();
     event.stopPropagation();
-    if (isHomePage.value) return;
-    const position = { x: event.clientX, y: event.clientY };
-    // open context menu
-    fileManagerActionStore.openContextMenu(position);
-    // update item
+
+    // Open context menu at click position
+    emits.toglleContextMenu(event, true);
+
     objectSelectedOne.value = file;
     // update selected items
     const findIndex = selectedItems.value.some((value) => value.key === file.key);
@@ -144,10 +131,13 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
       event.preventDefault();
       handleSelectAll();
     } else if (event.key === 'Delete' && selectedItems.value.length > 0) {
-      fileManagerActionStore.toggleModalMoveTrashFile();
-    } else if (event.ctrlKey && event.key && event.key.toLowerCase() === 'z') {
-      event.preventDefault();
-      fmActionRestoreTrash(listItemDelete.value);
+      // Delete: Delete files
+      console.log('show modal confirm delete :>> ');
+    } else if ((event.ctrlKey || event.metaKey) && event.altKey && event.key.toLowerCase() === 'e') {
+      // Ctrl/Cmd + Alt + E: Rename file
+      if (objectSelectedOne.value && selectedItems.value.length === 1) {
+        console.log('show modal rename file :>> ');
+      }
     }
   };
 
@@ -227,7 +217,8 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
     isSelecting.value = false;
   };
 
-  const createHandleScroll = (event: any) => {
+  const createHandleScroll = (event: MouseEvent) => {
+    console.log('createHandleScroll :>> ', event);
     const { scrollTop } = event.target as HTMLElement;
     const html = document.querySelector('html');
 
@@ -254,7 +245,7 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
     selectedItems,
     objectSelectedOne,
     listItemDelete,
-    isHomePage,
+    isMobile,
 
     // Methods
     handleTouchStart,

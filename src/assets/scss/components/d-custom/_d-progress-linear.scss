@@ -1,0 +1,26 @@
+.d-progress-linear {
+  width: 100%;
+
+  &__indeterminate {
+    width: 30%;
+    left: -30%;
+    background: var(--color-primary);
+  }
+  &__background {
+    background-color: #e0e0e0;
+  }
+
+  &__bar {
+    background-color: #1976d2;
+    height: 100%;
+  }
+}
+
+@keyframes indeterminate {
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}

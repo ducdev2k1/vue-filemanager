@@ -1,0 +1,20 @@
+.d-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .material-icons {
+    font-family: 'Material Icons', sans-serif;
+    font-size: inherit;
+    line-height: 1;
+  }
+}

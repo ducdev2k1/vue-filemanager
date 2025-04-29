@@ -13,7 +13,7 @@
   --color-black-65: #000000a6;
   --color-buton-dropdown-active: #bddcfa;
   --color-buton-dropdown-hover: #86b6e5;
-  --color-hover-btn: #495562;
+
   --color-primary: #53bc88;
   --color-primary-2: #f7ac1a;
   --color-primary-hover: #87edbb;
@@ -60,6 +60,7 @@
   --color-border-switch: #00000040;
   --color-border-warning: #fbaa70;
   --color-bordergray: #dfe5ef;
+  --color-hover-btn: #cfddec;
   --color-bottom-nav: #211f26;
   --color-btn-submit: #b6d3f0;
   --color-cancel: #d9dbdd;
@@ -68,7 +69,7 @@
   --color-dot-switch: #858585;
   --color-dot-switch-active: #53bc88;
   --color-dropdown: #fff;
-  --color-danger: #af051a;
+  --color-danger: #ff0000;
   --color-error: #6d1f4a;
   --color-error-emphasis: #d5745b;
   --color-gray: #f6f9fc;
@@ -114,6 +115,7 @@
   --color-warning-emphasis: #d9941a;
   --color--tr-table-active-sp: #cee2f5;
   --shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  --color-bg-d-custom: #fff;
 }
 
 .fm_dark {
@@ -158,9 +160,10 @@
   --color-header-table: #000000ff;
   --color-history: #ffffff1a;
   --color-history-active: #f1f1f1;
+  --color-hover-btn: #495562;
   --color-hover-btn-toolbar: #3d3d3d;
   --color-hover-item-copy: #2f4662;
-  --color-hover-tr-table: #424242;
+  --color-hover-tr-table: #495562;
   --color-hover-tr-table-active: #2d515a;
   --color-info: #223662;
   --color-input: rgba(255, 255, 255, 0.1);
@@ -193,4 +196,5 @@
   --color-warning-emphasis: #f7a40c;
   --color--tr-table-active-sp: #1c3043;
   --shadow: 0px 6px 10px 4px #00000026;
+  --color-bg-d-custom: #38475c;
 }

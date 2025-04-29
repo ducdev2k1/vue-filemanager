@@ -27,14 +27,14 @@ export function fileManagerGenerateNewPath(
 }
 
 export function getThumbnailIcon(item: IFileManager) {
-  const type = item.type;
-  const mimeTypeValue = actionGetMimeType(item.type);
+  const type = item?.type;
+  const mimeTypeValue = actionGetMimeType(item?.type);
 
   // Hàm phụ trợ để trả về đường dẫn icon
   const getIconPath = (iconName: string) => MdiWebfont[iconName] || MdiWebfont['file-outline'];
 
   // Trường hợp thư mục hoặc type không xác định
-  if (item.isDirectory) {
+  if (item?.isDirectory) {
     return getIconPath('folder-outline');
   }
 

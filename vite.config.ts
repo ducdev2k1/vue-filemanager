@@ -5,7 +5,8 @@ import Components from 'unplugin-vue-components/vite';
 import VueRouter from 'unplugin-vue-router/vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-// import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+
 
 // Utilities
 import { fileURLToPath, URL } from 'node:url';
@@ -56,6 +57,7 @@ export default defineConfig({
     Vue({
       // template: { transformAssetUrls },
     }),
+    vueJsx(),
     dts({ insertTypesEntry: true }),
     // vuetify({
     //   autoImport: true,

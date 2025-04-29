@@ -24,6 +24,7 @@
     prefix?: string;
     suffix?: string;
     id?: string;
+    rules?: ((value: string) => boolean | string)[];
   }
 
   const props = withDefaults(defineProps<TextFieldProps>(), {
@@ -104,16 +105,16 @@
   // Computed classes for styling
   const inputClasses = computed(() => {
     return [
-      `c-text-field--${props.variant}`,
-      `c-text-field--${props.density}`,
+      `d-text-field--${props.variant}`,
+      `d-text-field--${props.density}`,
       {
-        'c-text-field--focused': focused.value,
-        'c-text-field--error': props.error || normalizedErrorMessages.value.length > 0,
-        'c-text-field--disabled': props.disabled,
-        'c-text-field--readonly': props.readonly,
-        'c-text-field--has-label': !!props.label,
-        'c-text-field--clearable': props.clearable,
-        'c-text-field--has-value': !!inputValue.value,
+        'd-text-field--focused': focused.value,
+        'd-text-field--error': props.error || normalizedErrorMessages.value.length > 0,
+        'd-text-field--disabled': props.disabled,
+        'd-text-field--readonly': props.readonly,
+        'd-text-field--has-label': !!props.label,
+        'd-text-field--clearable': props.clearable,
+        'd-text-field--has-value': !!inputValue.value,
       },
     ];
   });
@@ -142,27 +143,27 @@
 </script>
 
 <template>
-  <div class="c-text-field-wrapper">
-    <div :class="['c-text-field', ...inputClasses]" @click="onClick">
+  <div class="d-text-field-wrapper">
+    <div :class="['d-text-field', ...inputClasses]" @click="onClick">
       <!-- Prefix -->
-      <div v-if="prefix" class="c-text-field__prefix">
+      <div v-if="prefix" class="d-text-field__prefix">
         {{ prefix }}
       </div>
 
-      <div class="c-text-field__input-wrap">
+      <div class="d-text-field__input-wrap">
         <!-- Floating label for outlined variant -->
         <label
           v-if="variant === 'outlined' && showLabel"
           :for="inputId"
-          class="c-text-field__label c-text-field__label--outlined">
+          class="d-text-field__label d-text-field__label--outlined">
           {{ label }}
-          <span v-if="required" class="c-text-field__label-required">*</span>
+          <span v-if="required" class="d-text-field__label-required">*</span>
         </label>
 
         <!-- Label for other variants -->
-        <label v-if="variant !== 'outlined' && showLabel" :for="inputId" class="c-text-field__label">
+        <label v-if="variant !== 'outlined' && showLabel" :for="inputId" class="d-text-field__label">
           {{ label }}
-          <span v-if="required" class="c-text-field__label-required">*</span>
+          <span v-if="required" class="d-text-field__label-required">*</span>
         </label>
 
         <input
@@ -176,14 +177,14 @@
           :required="required"
           :maxlength="maxlength"
           :autofocus="autofocus"
-          class="c-text-field__input"
+          class="d-text-field__input"
           @input="onInput"
           @focus="onFocus"
           @blur="onBlur" />
 
         <!-- Clear button -->
-        <div v-if="clearable && inputValue && !disabled && !readonly" class="c-text-field__clear" @click.stop="onClear">
-          <svg viewBox="0 0 24 24" class="c-text-field__clear-icon">
+        <div v-if="clearable && inputValue && !disabled && !readonly" class="d-text-field__clear" @click.stop="onClear">
+          <svg viewBox="0 0 24 24" class="d-text-field__clear-icon">
             <path
               d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
           </svg>
@@ -191,55 +192,41 @@
       </div>
 
       <!-- Suffix -->
-      <div v-if="suffix" class="c-text-field__suffix">
+      <div v-if="suffix" class="d-text-field__suffix">
         {{ suffix }}
       </div>
 
       <!-- Background and outline elements -->
-      <div v-if="variant === 'filled'" class="c-text-field__background"></div>
-      <fieldset v-if="variant === 'outlined'" aria-hidden="true" class="c-text-field__outline">
-        <legend class="c-text-field__outline-legend">
+      <div v-if="variant === 'filled'" class="d-text-field__background"></div>
+      <fieldset v-if="variant === 'outlined'" aria-hidden="true" class="d-text-field__outline">
+        <legend class="d-text-field__outline-legend">
           <span v-if="label && (!!inputValue || focused)">{{ label }}</span>
         </legend>
       </fieldset>
     </div>
 
     <!-- Details (errors, hints, counter) -->
-    <div v-if="hasMessages" class="c-text-field__details">
-      <div v-if="hint && !error && normalizedErrorMessages.length === 0" class="c-text-field__hint">
+    <div v-if="hasMessages" class="d-text-field__details">
+      <div v-if="hint && !error && normalizedErrorMessages.length === 0" class="d-text-field__hint">
         {{ hint }}
       </div>
 
-      <div v-if="normalizedErrorMessages.length > 0" class="c-text-field__error-messages">
-        <div v-for="(message, i) in normalizedErrorMessages" :key="`error-${i}`" class="c-text-field__error-message">
+      <div v-if="normalizedErrorMessages.length > 0" class="d-text-field__error-messages">
+        <div v-for="(message, i) in normalizedErrorMessages" :key="`error-${i}`" class="d-text-field__error-message">
           {{ message }}
         </div>
       </div>
 
-      <div v-if="normalizedSuccessMessages.length > 0" class="c-text-field__success-messages">
+      <div v-if="normalizedSuccessMessages.length > 0" class="d-text-field__success-messages">
         <div
           v-for="(message, i) in normalizedSuccessMessages"
           :key="`success-${i}`"
-          class="c-text-field__success-message">
+          class="d-text-field__success-message">
           {{ message }}
         </div>
       </div>
 
-      <div v-if="hasCounter" class="c-text-field__counter">{{ characterCount }} / {{ maxlength }}</div>
+      <div v-if="hasCounter" class="d-text-field__counter">{{ characterCount }} / {{ maxlength }}</div>
     </div>
   </div>
 </template>
-
-<style lang="scss">
-  // Variables
-  $font-size: 14px;
-  $font-size-small: 12px;
-  $primary-color: #1976d2;
-  $error-color: #f44336;
-  $success-color: #4caf50;
-  $disabled-color: rgba(0, 0, 0, 0.38);
-  $hover-color: rgba(0, 0, 0, 0.05);
-  $border-color: rgba(0, 0, 0, 0.23);
-  $background-color: #f5f5f5;
-  $transition-duration: 0.2s;
-</style>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
+  import { IActionFM, ITreeNodeData } from '@/interfaces';
   import { EnumModalFM, EnumTypeConfirm } from '@/utils/MyEnum';
   import { DemoActionFM } from './data/DemoActionFm';
   import { demoDateTreeFolder } from './data/DemoDataFilemanager';
-  import { IActionFM, ITreeFolder } from './interfaces';
   import { IFileManager } from './interfaces/IFileManager';
 
   const selectedItems = ref<IFileManager[]>([]);
@@ -66,10 +66,10 @@
     }
   };
 
-  const handlePaste = (folder: ITreeFolder) => {
+  const handlePaste = (folder: ITreeNodeData) => {
     console.log('handlePaste :>> ', folder);
   };
-  const loadChildrenFolder = (folder: ITreeFolder) => {
+  const loadChildrenFolder = async (folder: ITreeNodeData) => {
     console.log('loadChildrenFolder :>> ', folder);
   };
 

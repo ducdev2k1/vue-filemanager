@@ -18,7 +18,6 @@
 
   const objectSelectedOne = computed(() => props.selectedOneItem);
   const isFolder = computed(() => objectSelectedOne.value.isDirectory);
-  const textField = ref<any>(null);
   const isSystemFile = computed(() => {
     const splitName = objectSelectedOne.value.name.split('.');
     return splitName.length > 0 && splitName.length <= 2 && !splitName[0];
@@ -31,13 +30,6 @@
   const form = ref();
   const name = ref(objectSelectedOne.value.name);
   const type = ref('');
-
-  const selectText = () => {
-    if (textField.value) {
-      const inputEl = textField.value.$el.querySelector('input') as HTMLInputElement | null;
-      if (inputEl) inputEl.select();
-    }
-  };
 
   const handleUpdateName = async () => {
     const isValid = await form.value?.validate();
@@ -62,19 +54,17 @@
   });
 </script>
 <template>
-  <Modal class="w-[500px]" v-bind="$attrs" @close="emits('close')">
+  <Modal maxWidth="600px" v-bind="$attrs" @close="emits('close')">
     <template #title>
       {{ t('locale.rename') + ' ' + t(`locale.${objectSelectedOne.isDirectory ? 'folder' : 'file'}`).toLowerCase() }}
     </template>
     <template #content>
-      <v-form ref="form" @submit.prevent="handleUpdateName">
+      <form ref="form" @submit.prevent="handleUpdateName">
         <div>
           <DTextFieldAddon
             v-model="name"
-            ref="textField"
-            :error="[actionValidateRequired]"
-            autofocus
-            @focus="selectText"
+            autoSelect
+            :rules="[actionValidateRequired]"
             :label="t('locale.data_input', { data: t('locale.backend_data_name').toLowerCase() })">
             <template #append-inner>
               <span class="text-place">{{ type }}</span>
@@ -82,7 +72,7 @@
           </DTextFieldAddon>
         </div>
         <div class="c-dialog_gr-action">
-          <DBtn :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
+          <DBtn class="d-btn-cancel" :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
           <DBtn
             :icon="MdiWebfont['send-variant']"
             class="c-btn-primary"
@@ -90,7 +80,7 @@
             :loading="loading"
             :title="t('locale.ok')" />
         </div>
-      </v-form>
+      </form>
     </template>
   </Modal>
 </template>

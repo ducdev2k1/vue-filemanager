@@ -1,0 +1,16 @@
+.d-virtual-scroll {
+  &__item {
+    display: block;
+    margin-bottom: 16px;
+    min-height: fit-content;
+  }
+  &__spacer {
+    position: relative;
+  }
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}

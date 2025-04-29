@@ -23,4 +23,11 @@ export const columnsDefault = [
     visible: true,
     width: '160',
   },
+  {
+    key: 'groupActions',
+    title: 'groupActions',
+    visible: true,
+    width: '200',
+    align: 'end',
+  },
 ];

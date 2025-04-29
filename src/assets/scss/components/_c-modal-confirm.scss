@@ -1,6 +1,5 @@
 /// modal confirm
 .c-modal-confirm {
-  .v-card-title,
   .c-dialog_gr-action {
     &::after {
       display: none !important;
@@ -55,10 +54,14 @@
       color: var(--color-danger);
     }
 
-    .v-list {
+    .d-list {
       background: transparent !important;
     }
-
+    .d-icon {
+      i.mdi {
+        font-size: 26px;
+      }
+    }
     &-content {
       .desc {
         @apply leading-[20px];

@@ -67,7 +67,7 @@
     }
 
     &:hover {
-      border-color: var(--color-success);
+      border-color: var(--color-success) !important;
     }
   }
 
@@ -118,8 +118,8 @@
     }
 
     &:hover {
-      border-color: var(--color-primary-hover);
-      background-color: var(--color-primary-hover);
+      border-color: var(--color-primary-hover) !important;
+      background-color: var(--color-primary-hover) !important;
     }
   }
 }

@@ -21,6 +21,7 @@
   const textDefault = computed(() => props.textDefault);
   const numberShowDrop = computed(() => (width.value > breakPoint.brSpLandscape ? 4 : 2));
   const showDropdown = computed(() => listBreadcrumb.value.length > numberShowDrop.value);
+  const isMenuOpen = ref(false);
 
   const visibleBreadcrumbs = computed(() => {
     if (!showDropdown.value) return listBreadcrumb.value;
@@ -49,7 +50,7 @@
 </script>
 
 <template>
-  <DBreadcrumbs class="text-white c-breadcrumbs" v-bind="$attrs" :items="visibleBreadcrumbs">
+  <d-breadcrumbs class="text-white c-breadcrumbs" v-bind="$attrs" :items="visibleBreadcrumbs">
     <d-breadcrumbs-item>
       <DBtn :disabled="listBreadcrumb.length <= 0" :title="textDefault" @click="actionReloadPage" />
     </d-breadcrumbs-item>
@@ -57,10 +58,7 @@
       <d-icon :icon="MdiWebfont['chevron-right']" />
     </d-breadcrumbs-divider>
     <template v-for="(item, index) in visibleBreadcrumbs" :key="index">
-      <v-menu v-if="!item.path" open-on-hover class="c-menu-down">
-        <template #activator="{ props }">
-          <DBtnIcon v-bind="props" :icon="MdiWebfont['dots-horizontal']" />
-        </template>
+      <DBtnDropDown open-on-click :icon="MdiWebfont['dots-horizontal']" v-if="!item.path" :model-value="item.name">
         <d-list class="c-menu-down_list">
           <d-list-item
             class="c-menu-down_item"
@@ -73,7 +71,7 @@
             </template>
           </d-list-item>
         </d-list>
-      </v-menu>
+      </DBtnDropDown>
       <d-breadcrumbs-item v-else>
         <DBtn
           :icon="MdiWebfont['folder-outline']"
@@ -88,5 +86,5 @@
         <d-icon :icon="MdiWebfont['chevron-right']" />
       </d-breadcrumbs-divider>
     </template>
-  </DBreadcrumbs>
+  </d-breadcrumbs>
 </template>

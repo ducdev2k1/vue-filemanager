@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { useClickOutside } from '@/composables/clickOutside';
   import { IActionFM } from '@/interfaces';
 
   defineOptions({
@@ -11,9 +12,9 @@
     onClickItem?: (menuItem: IActionFM) => void;
   }
 
-  const props = defineProps<IProps>();
+  const emit = defineEmits(['close']);
 
-  // Stores
+  const props = defineProps<IProps>();
 
   // Refs
   const innerWidth = ref(window.innerWidth);
@@ -39,7 +40,10 @@
     if (props.onClickItem) {
       props.onClickItem(menuItem);
     }
+    // close context menu
+    emit('close');
   };
+  useClickOutside(contextMenuDesktop, () => emit('close'));
 </script>
 
 <template>
@@ -53,7 +57,7 @@
     }">
     <slot v-if="$slots['context-menu-item']" name="context-menu-item" />
     <template v-else>
-      <FmContextMenuItem :list-menus="listMenu" :on-click-item="handleClickItem" />
+      <ContextMenuItem :list-menus="listMenu" :on-click-item="handleClickItem" />
     </template>
   </div>
 </template>

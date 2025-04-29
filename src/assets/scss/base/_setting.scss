@@ -76,22 +76,8 @@ $textLinkHover: var(--color-primary);
 
   i.mdi {
     font-size: 18px;
-
-    &::before {
-      color: var(--color-text);
-    }
-  }
-
-  @media (max-width: 1199px) {
-    font-size: 14px;
-    i.mdi {
-      font-size: 24px;
-    }
-  }
-  @media (max-width: 767px) {
-    i.mdi {
-      font-size: 22px;
-    }
+    line-height: 24px;
+    color: var(--color-text);
   }
 }
 

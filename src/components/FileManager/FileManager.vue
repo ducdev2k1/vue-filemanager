@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { columnsDefault } from '@/components/FileManager/partial/ConfigFileManager';
+  import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
   import { demoDataFilemanager } from '@/data/DemoDataFilemanager';
   import { IActionFM, IColumnFileManger } from '@/interfaces';
   import { IFileManager } from '@/interfaces/IFileManager';
@@ -95,12 +96,23 @@
     },
   ]);
 
-  // Xử lý hiển thị context menu
+  const actionClickContextMenu = (item: IActionFM) => {
+    props.contextMenuClick && props.contextMenuClick(item);
+    // close context menu
+    showContextMenu.value = false;
+  };
+
+  // Show context-menu
   const handleShowContextMenu = (event: MouseEvent, bool: boolean) => {
     event.preventDefault();
     event.stopPropagation();
     showContextMenu.value = bool;
     positionContextMenu.value = { x: event.clientX, y: event.clientY };
+  };
+
+  const actionClickBtnShowContextMenu = (event: MouseEvent, item: IFileManager) => {
+    selectedOneItem.value = item;
+    handleShowContextMenu(event, true);
   };
 
   const actionBreadCrumbClick = ({ data, refresh }: { data?: IFileManager; refresh?: boolean }) => {
@@ -119,7 +131,7 @@
       if (newVal === 'dark') {
         html.classList.add('fm_dark');
       } else {
-        html.classList.add('light');
+        html.classList.add('fm_light');
       }
     },
     {
@@ -134,6 +146,7 @@
       @refresh="emits('refresh')"
       :loading="loading"
       :action-toolbar="actionToolbar"
+      :selectedItems="selectedItems"
       :toolbar-click="toolbarClick">
       <template #fmToolbarLeft>
         <slot v-if="$slots['fm-breadcrumbs']" name="fm-breadcrumbs" />
@@ -146,12 +159,9 @@
       </template>
     </ToolbarFilemanager>
 
-    <!--  B: Slot này dùng để chèn UI/UX mở rộng cần thiết -->
     <slot v-if="$slots['toolbar-bottom']" name="toolbar-bottom" v-bind="{ data: dataFilemanger }"></slot>
-    <!--  E: Slot này dùng để chèn UI/UX mở rộng cần thiết -->
 
-    <!---B: FILE MANAGER ---->
-    <TableFilemanagerV2
+    <TableFilemanager
       v-bind="$attrs"
       v-model="selectedItems"
       v-model:selectedOneItem="selectedOneItem"
@@ -188,30 +198,28 @@
         <ColumnDateModified :data-row="value" :format="dateFormat" />
       </template>
 
+      <template #item.groupActions="{ item }" v-if="!$slots['item.groupActions']">
+        <DBtnIcon :icon="MdiWebfont['dots-vertical']" @click="actionClickBtnShowContextMenu($event, item)" />
+      </template>
+
       <template #no-data.table v-if="$slots['no-data']">
         <slot name="no-data" />
       </template>
-    </TableFilemanagerV2>
-    <!--
+    </TableFilemanager>
+
     <template v-else-if="viewFM === EnumViewModeFm.thumbnails">
       <GridItem
         :loading="loading"
         :list-data="dataFilemanger"
         @load="emits('scroll')"
-        @double-click="emits('doubleClickRow')" />
-    </template> -->
-    <!-- :is-loading-more="isLoadingMore" -->
+        @double-click="props.doubleClickRow" />
+    </template>
 
-    <!---E: FILE MANAGER ---->
-
-    <!---B: ContextMenu MOBILE--->
-    <!-- <ContextMenu >
-      <slot v-if="$slots['context-menu']" name="context-menu" />
-    </ContextMenu> -->
-    <FmContextMenu
+    <ContextMenu
       v-if="showContextMenu"
       :items="contextMenuOptions"
-      :on-click-item="props.contextMenuClick"
+      @close="showContextMenu = false"
+      :on-click-item="actionClickContextMenu"
       :positionContextMenu="positionContextMenu" />
     <!---E: ContextMenu MOBILE--->
   </section>
