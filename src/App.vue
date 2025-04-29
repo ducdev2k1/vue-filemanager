@@ -2,7 +2,6 @@
   import { IActionFM, ITreeNodeData } from '@/interfaces';
   import { EnumModalFM, EnumTypeConfirm } from '@/utils/MyEnum';
   import { DemoActionFM } from './data/DemoActionFm';
-  import { demoDateTreeFolder } from './data/DemoDataFilemanager';
   import { IFileManager } from './interfaces/IFileManager';
 
   const selectedItems = ref<IFileManager[]>([]);
@@ -133,8 +132,7 @@
       :type-modal="typeModalMoveAndCopyTo"
       :paste="handlePaste"
       :loadChildrenFolder="loadChildrenFolder"
-      @close="showModalCopyTo = false"
-      :dataTreeFolder="demoDateTreeFolder" />
+      @close="showModalCopyTo = false" />
 
     <ModalConfirm
       v-if="showModalConfirmDelete"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
+  import { demoDateTreeFolder } from '@/data/DemoDataFilemanager';
   import { ITreeFolder, ITreeNodeData } from '@/interfaces';
   import { IFileManager } from '@/interfaces/IFileManager';
   import { t } from '@/plugins/i18n';
@@ -12,7 +13,7 @@
   interface IProps {
     class?: string;
     typeModal: EnumModalFM;
-    dataTreeFolder: ITreeFolder[];
+    dataTreeFolder?: ITreeFolder[];
     selectedItems: IFileManager[];
     loadChildrenFolder?: (data: ITreeNodeData) => Promise<void>;
     paste?: (data: ITreeFolder) => void;
@@ -32,7 +33,7 @@
 
   // Computed
   const typeModal = computed(() => props?.typeModal as EnumModalFM);
-  const dataTreeFolder = computed(() => props.dataTreeFolder);
+  const dataTreeFolder = computed(() => props.dataTreeFolder || demoDateTreeFolder);
   const selectedItems = computed(() => props.selectedItems);
 
   const actionLoadChildrenFolder = async (data: ITreeNodeData) => {
