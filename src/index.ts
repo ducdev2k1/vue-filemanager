@@ -5,7 +5,6 @@ import './assets/css/materialdesignicons.min.css';
 import './assets/scss/filemanager.scss';
 
 // Import Components
-import CircularLoader from '@/components/CircularLoader/CircularLoader.vue';
 import DBtn from '@/components/DCustom/DButton/DBtn.vue';
 import DBtnDropDown from '@/components/DCustom/DButton/DBtnDropDown.vue';
 import DBtnIcon from '@/components/DCustom/DButton/DBtnIcon.vue';
@@ -17,6 +16,7 @@ import DList from '@/components/DCustom/DList/DList.vue';
 import DListItem from '@/components/DCustom/DList/DListItem.vue';
 import DModal from '@/components/DCustom/DModal/DModal.vue';
 import FileManager from '@/components/FileManager/FileManager.vue';
+import CircularLoader from '@/components/Loader/CircularLoader.vue';
 import Modal from '@/components/Modal/Modal.vue';
 import ModalConfirm from '@/components/Modal/ModalConfirm.vue';
 import ModalDetail from '@/components/Modal/ModalDetail.vue';
