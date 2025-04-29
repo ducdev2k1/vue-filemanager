@@ -5,14 +5,6 @@ import './assets/css/materialdesignicons.min.css';
 import './assets/scss/filemanager.scss';
 
 // Import Components
-<<<<<<< HEAD
-import DBtn from './components/DCustom/DButton/DBtn.vue';
-import DBtnIcon from './components/DCustom/DButton/DBtnIcon.vue';
-import DBtnSwicthView from './components/DCustom/DButton/DBtnSwicthView.vue';
-import FileManager from './components/FileManager/FileManager.vue';
-import Modal from './components/Modal/Modal.vue';
-import ModalConfirm from './components/Modal/ModalConfirm.vue';
-=======
 import DBtn from '@/components/DCustom/DButton/DBtn.vue';
 import DBtnDropDown from '@/components/DCustom/DButton/DBtnDropDown.vue';
 import DBtnIcon from '@/components/DCustom/DButton/DBtnIcon.vue';
@@ -30,22 +22,12 @@ import ModalConfirm from '@/components/Modal/ModalConfirm.vue';
 import ModalDetail from '@/components/Modal/ModalDetail.vue';
 import ModalMoveAndCopyTo from '@/components/Modal/ModalMoveAndCopyTo.vue';
 import ModalRename from '@/components/Modal/ModalRename.vue';
->>>>>>> d30d3957b0156bc0eb43722186580bd361e5bc5f
 
 export default {
   install(app: App) {
     app.component('DBtn', DBtn);
     app.component('DBtnIcon', DBtnIcon);
     app.component('DBtnSwicthView', DBtnSwicthView);
-<<<<<<< HEAD
-    app.component('FileManager', FileManager);
-    app.component('ModalConfirm', ModalConfirm);
-    app.component('Modal', Modal);
-  },
-};
-
-export { DBtn, DBtnIcon, DBtnSwicthView, FileManager, Modal, ModalConfirm };
-=======
     app.component('DBtnDropDown', DBtnDropDown);
     app.component('FileManager', FileManager);
     app.component('ModalConfirm', ModalConfirm);
@@ -81,4 +63,3 @@ export {
   ModalMoveAndCopyTo,
   ModalRename,
 };
->>>>>>> d30d3957b0156bc0eb43722186580bd361e5bc5f
