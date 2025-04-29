@@ -1,4 +1,4 @@
-export const enum MyEnum {
+export enum MyEnum {
   vi = 'vi',
   en = 'en',
 }

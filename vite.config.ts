@@ -1,12 +1,11 @@
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import Vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import VueRouter from 'unplugin-vue-router/vite';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-
 
 // Utilities
 import { fileURLToPath, URL } from 'node:url';
@@ -130,13 +129,23 @@ export default defineConfig({
       fileName: (format) => `file-manager.${format}.js`,
     },
     rollupOptions: {
-      external: ['vue', 'pinia'],
+      external: ['vue'],
       output: {
         globals: {
           vue: 'Vue',
         },
+        // Đặt tên file CSS
+        assetFileNames: ({ name }) => {
+          if (/\.css$/.test(name ?? '')) {
+            return 'file-manager.css';
+          }
+          return '[name].[ext]';
+        },
       },
     },
     cssCodeSplit: true, // tách riêng CSS
+    sourcemap: true, // Tạo sourcemap để debug
+    minify: 'esbuild', // Sử dụng esbuild để xử lý TypeScript
+    target: 'esnext', // Đầu ra JS hiện đại
   },
 });

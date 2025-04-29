@@ -23,6 +23,13 @@ import ModalDetail from '@/components/Modal/ModalDetail.vue';
 import ModalMoveAndCopyTo from '@/components/Modal/ModalMoveAndCopyTo.vue';
 import ModalRename from '@/components/Modal/ModalRename.vue';
 
+// export Utils
+export * from './utils';
+
+// export Interfaces
+export * from './interfaces';
+export * from './interfaces/IFileManager';
+
 export default {
   install(app: App) {
     app.component('DBtn', DBtn);

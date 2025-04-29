@@ -1,7 +1,7 @@
 {
   "name": "@ducdev2k1/vue-filemanager",
   "description": "A powerful file manager application built with Vue 3. It includes features such as file and folder management, drag-and-drop file uploads, previews for images and documents, batch operations, and seamless integration with APIs or cloud storage.",
-  "version": "0.0.03-beta",
+  "version": "0.0.04-beta",
   "main": "./dist/file-manager.umd.js",
   "module": "./dist/file-manager.es.js",
   "types": "./dist/index.d.ts",
