@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
-import { IFileManager } from '@/interfaces/IFileManager';
-import { t } from '@/plugins/i18n';
-import { actionValidateRequired } from '@/utils/MyValidation';
+  import { IFileManager } from '@/interfaces/IFileManager';
+  import { t } from '@/plugins/i18n';
+  import { actionValidateRequired } from '@/utils/MyValidation';
 
   defineOptions({
     inheritAttrs: false,
@@ -18,7 +18,6 @@ import { actionValidateRequired } from '@/utils/MyValidation';
 
   const objectSelectedOne = computed(() => props.selectedOneItem);
   const isFolder = computed(() => objectSelectedOne.value.isDirectory);
-  const textField = ref<HTMLElement | null>(null);
   const isSystemFile = computed(() => {
     const splitName = objectSelectedOne.value.name.split('.');
     return splitName.length > 0 && splitName.length <= 2 && !splitName[0];
@@ -37,7 +36,6 @@ import { actionValidateRequired } from '@/utils/MyValidation';
     if (isValid && name.value) {
       emits('submit', `${name.value}${type.value}`);
     }
-    console.log('isValid', name.value, type.value);
   };
 
   onMounted(() => {
