@@ -209,8 +209,12 @@
 
     <template v-else-if="viewFM === EnumViewModeFm.thumbnails">
       <GridItem
+        :show-checkbox="showCheckbox"
+        :update-selected="updateSelected"
+        :update-selected-one="updateSelectedOne"
         :loading="loading"
         :list-data="dataFilemanger"
+        @toglle-context-menu="(e: MouseEvent, bool: boolean) => handleShowContextMenu(e, bool)"
         @load="emits('scroll')"
         @double-click="props.doubleClickRow" />
     </template>

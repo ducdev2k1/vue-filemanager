@@ -1,4 +1,6 @@
 .d-virtual-scroll {
+  overflow-y: auto;
+  position: relative;
   &__item {
     display: block;
     margin-bottom: 16px;

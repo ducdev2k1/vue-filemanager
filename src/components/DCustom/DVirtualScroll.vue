@@ -1,16 +1,3 @@
-<template>
-  <div class="d-virtual-scroll" ref="scrollContainer" @scroll="handleScroll">
-    <div class="d-virtual-scroll__spacer" :style="{ height: totalHeight + 'px' }">
-      <div class="d-virtual-scroll__content" :style="{ transform: `translateY(${offset}px)` }">
-        <div v-for="(group, index) in visibleItems" :key="index" class="d-virtual-scroll__item">
-          <!-- :style="{ height: itemHeight ? itemHeight + 'px' : 'auto' }" -->
-          <slot :item="group" :index="startIndex + index"></slot>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
   // Props
 
@@ -113,26 +100,21 @@
   });
 </script>
 
+<template>
+  <div class="d-virtual-scroll" ref="scrollContainer" @scroll="handleScroll">
+    <div class="d-virtual-scroll__spacer" :style="{ height: totalHeight + 'px' }">
+      <div class="d-virtual-scroll__content" :style="{ transform: `translateY(${offset}px)` }">
+        <div v-for="(group, index) in visibleItems" :key="index" class="d-virtual-scroll__item">
+          <!-- :style="{ height: itemHeight ? itemHeight + 'px' : 'auto' }" -->
+          <slot :item="group" :index="startIndex + index"></slot>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <style scoped>
   .d-virtual-scroll {
     height: v-bind('height + "px"');
-    overflow-y: auto;
-    position: relative;
-  }
-
-  .d-virtual-scroll__item {
-    display: block;
-    margin-bottom: 16px;
-    min-height: fit-content;
-  }
-  .d-virtual-scroll__spacer {
-    position: relative;
-  }
-
-  .d-virtual-scroll__content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
   }
 </style>

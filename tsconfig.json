@@ -16,6 +16,7 @@
     "resolveJsonModule": true,
     "types": [
       "vite/client",
+      "vue",
       "vite-plugin-vue-layouts/client",
       "@intlify/unplugin-vue-i18n/messages",
       "unplugin-vue-router/client",

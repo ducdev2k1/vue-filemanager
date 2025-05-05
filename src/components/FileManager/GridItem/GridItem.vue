@@ -11,6 +11,9 @@
     loading: boolean;
     isLoadingMore?: boolean;
     virtualScrollHeightItem?: number | string;
+    showCheckbox?: boolean;
+    updateSelected: (data: IFileManager[]) => void;
+    updateSelectedOne: (data: IFileManager) => void;
   }
 
   const props = withDefaults(defineProps<IProps>(), {
@@ -19,15 +22,22 @@
     virtualScrollHeightItem: 224,
   });
 
+  const propsFunctions = {
+    updateSelected: (file: IFileManager[]) => props.updateSelected(file),
+    updateSelectedOne: (file: IFileManager) => props.updateSelectedOne(file),
+  };
+
   // const route = useRoute();
-  const emits = defineEmits(['load', 'doubleClick', 'download']);
+  const emits = defineEmits(['loadMoreItem', 'doubleClick', 'download', 'toglleContextMenu']);
   const listData = computed(() => props.listData as IFileManager[]);
   const loading = computed(() => props.loading);
   const isLoadingMore = computed(() => props.isLoadingMore);
+  const showCheckbox = computed(() => props.showCheckbox || false);
 
   const emitFunctions = {
-    load: () => emits('load'),
+    loadMoreItem: () => emits('loadMoreItem'),
     doubleClick: (file: IFileManager) => emits('doubleClick', file),
+    toglleContextMenu: (event: MouseEvent, bool: boolean) => emits('toglleContextMenu', event, bool),
   };
 
   const {
@@ -51,7 +61,8 @@
     stopSelection,
     createHandleScroll,
     getThumbnailIcon,
-  } = useGridItem(listData, emitFunctions);
+    handleClearSelected,
+  } = useGridItem(listData, emitFunctions, propsFunctions);
 
   onMounted(() => {
     setupGridItem();
@@ -71,6 +82,19 @@
   </template>
 
   <div v-else class="c-grid noselect" ref="gridRef">
+    <div class="c-grid_header">
+      <template v-if="selectedItems.length > 0">
+        <DCheckbox
+          v-if="showCheckbox"
+          @click.stop="selectAllItems"
+          :model-value="selectedItems.length === dataTable.length"
+          :indeterminate="dataTable.includes(selectedItems)" />
+        <DBtn
+          :icon="MdiWebfont['close']"
+          @click="handleClearSelected"
+          :title="`${selectedItems.length} ${t('locale.selected')}`" />
+      </template>
+    </div>
     <d-virtual-scroll
       v-if="groupedListData.length > 0"
       :height="offsetHeight"

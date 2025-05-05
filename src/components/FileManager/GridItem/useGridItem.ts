@@ -4,12 +4,18 @@ import { breakPoint } from '@/utils/MyVariables';
 import { useWindowSize } from '@vueuse/core';
 
 interface IEmitFunctions {
-  load: () => void;
+  loadMoreItem: () => void;
   doubleClick: (file: IFileManager) => void;
+  toglleContextMenu: (e: MouseEvent, bool: boolean) => void;
   [key: string]: (...args: any[]) => void;
 }
 
-export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitFunctions) => {
+interface IProps {
+  updateSelected: (data: IFileManager[]) => void;
+  updateSelectedOne: (data: IFileManager) => void;
+}
+
+export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitFunctions, props: IProps) => {
   const { width } = useWindowSize();
 
   // Grid layout related refs
@@ -36,6 +42,32 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
   const selectedItems = ref([] as IFileManager[]);
   const objectSelectedOne = ref({} as IFileManager);
   const listItemDelete = ref([] as IFileManager[]);
+
+  // Watches for selectedItems and objectSelectedOne
+  watch(
+    () => selectedItems.value,
+    (newValue) => {
+      // Update objectSelectedOne (last item of selectedItems)
+      if (newValue.length > 0) {
+        objectSelectedOne.value = newValue[newValue.length - 1];
+      } else {
+        objectSelectedOne.value = {} as IFileManager;
+      }
+      props.updateSelected(newValue || ([] as IFileManager[]));
+    },
+  );
+
+  watch(
+    () => objectSelectedOne.value,
+    (newValue) => {
+      props.updateSelectedOne(newValue || ({} as IFileManager));
+    },
+  );
+
+  const handleClearSelected = () => {
+    selectedItems.value = [] as IFileManager[];
+    objectSelectedOne.value = {} as IFileManager;
+  };
 
   // Update grid dimensions
   const updateOffsetWidth = () => {
@@ -106,8 +138,8 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
   };
 
   const handleLoadMoreItem = () => {
-    // Gọi emit load
-    emits.load();
+    // Gọi emit load more item
+    emits.loadMoreItem();
   };
 
   const rightClickHandler = (event: MouseEvent, file: IFileManager) => {
@@ -118,6 +150,7 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
     emits.toglleContextMenu(event, true);
 
     objectSelectedOne.value = file;
+
     // update selected items
     const findIndex = selectedItems.value.some((value) => value.key === file.key);
     if (!findIndex) {
@@ -265,5 +298,6 @@ export const useGridItem = (listData: ComputedRef<IFileManager[]>, emits: IEmitF
     stopSelection,
     createHandleScroll,
     getThumbnailIcon,
+    handleClearSelected,
   };
 };
