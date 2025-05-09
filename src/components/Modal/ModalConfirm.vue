@@ -165,7 +165,7 @@
           <DBtn class="d-btn-danger" :title="t('locale.cancel_upload')" icon="X" @click="emits('submit')" />
         </template>
         <template v-else>
-          <DBtn class="d-btn-cancel" :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
+          <DBtn cancel :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
           <DBtn
             :class="[typeConfirm === EnumTypeConfirm.delete ? 'd-btn-danger' : 'd-btn-submit']"
             :title="textBtnSubmit || titleButtonSubmit"

@@ -80,7 +80,7 @@
       </div>
     </template>
     <template #actions>
-      <DBtn class="d-btn-cancel" :title="t('locale.close')" :icon="MdiWebfont['close']" @click="() => emits('close')" />
+      <DBtn cancel :title="t('locale.close')" :icon="MdiWebfont['close']" @click="() => emits('close')" />
     </template>
   </Modal>
 </template>

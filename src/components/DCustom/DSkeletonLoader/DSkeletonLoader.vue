@@ -1,43 +1,14 @@
-<template>
-  <div class="d-skeleton-loader">
-    <h1 class="d-skeleton-loader__title">Skeleton Loader Demo</h1>
-
-    <div class="d-skeleton-loader__section">
-      <h2 class="d-skeleton-loader__subtitle">Text Loader</h2>
-      <SkeletonLoader type="text" width="200px" />
-    </div>
-
-    <div class="d-skeleton-loader__section">
-      <h2 class="d-skeleton-loader__subtitle">Avatar Loader</h2>
-      <SkeletonLoader type="avatar" />
-    </div>
-
-    <div class="d-skeleton-loader__section">
-      <h2 class="d-skeleton-loader__subtitle">Card Loader</h2>
-      <SkeletonLoader type="card" />
-    </div>
-
-    <div class="d-skeleton-loader__section">
-      <h2 class="d-skeleton-loader__subtitle">List Loader</h2>
-      <SkeletonLoader type="list" />
-    </div>
-
-    <div class="d-skeleton-loader__section">
-      <h2 class="d-skeleton-loader__subtitle">Image Loader</h2>
-      <SkeletonLoader type="image" width="300px" height="150px" />
-    </div>
-
-    <div class="d-skeleton-loader__section">
-      <h2 class="d-skeleton-loader__subtitle">Boilerplate Loader</h2>
-      <SkeletonLoader type="text" boilerplate />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-  import { computed, defineComponent, h } from 'vue';
+  import { EnumTheme } from '@/utils';
 
   type SkeletonType = 'text' | 'card' | 'list' | 'avatar' | 'image';
+
+  interface IProps {
+    type?: SkeletonType;
+    theme?: EnumTheme;
+  }
+
+  defineProps<IProps>();
 
   const SkeletonLoader = defineComponent({
     name: 'SkeletonLoader',
@@ -98,6 +69,18 @@
     },
   });
 </script>
+
+<template>
+  <div class="d-skeleton-loader">
+    <div class="d-skeleton-loader__section">
+      <SkeletonLoader
+        :type="type"
+        :width="type === 'text' ? '200px' : type === 'image' ? '300px' : undefined"
+        :height="type === 'image' ? '150px' : undefined"
+        :boilerplate="type === 'text' ? true : false" />
+    </div>
+  </div>
+</template>
 
 <style scoped lang="scss">
   .d-skeleton-loader {

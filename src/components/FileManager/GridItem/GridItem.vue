@@ -77,7 +77,7 @@
 <template>
   <template v-if="loading">
     <div class="c-grid_wrap">
-      <DSkeletonLoader v-for="i in 10" :key="i" type="table-heading, image, list-item-avatar" />
+      <DSkeletonLoader v-for="i in 18" :key="i" type="card" />
     </div>
   </template>
 

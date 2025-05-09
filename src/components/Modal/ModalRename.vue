@@ -29,6 +29,7 @@
   const loading = computed(() => props.loading);
   const form = ref();
   const name = ref(objectSelectedOne.value.name);
+  const oldName = ref(objectSelectedOne.value.name);
   const type = ref('');
 
   const handleUpdateName = async () => {
@@ -54,13 +55,13 @@
   });
 </script>
 <template>
-  <Modal maxWidth="600px" v-bind="$attrs" @close="emits('close')">
+  <Modal maxWidth="600px" v-bind="$attrs" @close="emits('close')" class="c-modal-rename">
     <template #title>
       {{ t('locale.rename') + ' ' + t(`locale.${objectSelectedOne.isDirectory ? 'folder' : 'file'}`).toLowerCase() }}
     </template>
     <template #content>
       <form ref="form" @submit.prevent="handleUpdateName">
-        <div>
+        <div class="c-modal-rename_content">
           <DTextFieldAddon
             v-model="name"
             autoSelect
@@ -70,9 +71,18 @@
               <span class="text-place">{{ type }}</span>
             </template>
           </DTextFieldAddon>
+          <div class="c-modal-rename_content-text">
+            <p>
+              {{ t('locale.name') }}:
+              <span>{{ oldName }}</span>
+            </p>
+            <p>
+              <span>{{ name }}</span>
+            </p>
+          </div>
         </div>
         <div class="c-dialog_gr-action">
-          <DBtn class="d-btn-cancel" :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
+          <DBtn cancel :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
           <DBtn
             :icon="MdiWebfont['send-variant']"
             class="c-btn-primary"

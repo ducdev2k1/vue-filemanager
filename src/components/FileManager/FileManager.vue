@@ -45,6 +45,7 @@
     doubleClickRow?: (item: IFileManager) => void;
     clickContextMenu?: (item: IActionFM) => void;
     onClickBreadcrumb?: ({ data, refresh }: { data?: IFileManager; refresh?: boolean }) => void;
+    createNew?:({type, data}: {type: string, data: string}) => void;
   }
 
   const emits = defineEmits(['scroll', 'refresh']);
@@ -227,4 +228,6 @@
       :positionContextMenu="positionContextMenu" />
     <!---E: ContextMenu MOBILE--->
   </section>
+
+  <ModalCreateFolderOrFile />
 </template>

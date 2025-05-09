@@ -14,6 +14,8 @@
     tooltip?: string;
     locationTooltip?: EnumLocation;
     disabled?: boolean;
+    border?: boolean;
+    cancel?: boolean;
   }
 
   const props = withDefaults(defineProps<IProps>(), {
@@ -23,6 +25,7 @@
     loadingClass: 'w-4 h-4',
     locationTooltip: EnumLocation.top,
     disabled: false,
+    border: false,
   });
 
   const title = computed(() => props?.title as string);
@@ -104,6 +107,8 @@
       'd-btn--with-text': title?.length > 0,
       'd-btn--disabled': loading || disabled,
       'gap-1': title?.length > 0,
+      'd-btn--border': border,
+      'd-btn--cancel': cancel,
     }"
     v-bind="$attrs"
     :disabled="loading || disabled">
@@ -151,6 +156,4 @@
   </button>
 </template>
 
-<style scoped>
- 
-</style>
+<style scoped></style>

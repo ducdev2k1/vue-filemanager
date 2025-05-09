@@ -68,6 +68,11 @@
         &.permanently {
         }
       }
+      .d-list-item {
+        > i.mdi {
+          font-size: 32px;
+        }
+      }
     }
   }
 }

@@ -56,7 +56,7 @@ export default defineConfig({
     Vue({
       // template: { transformAssetUrls },
     }),
-    vueJsx(),
+    vueJsx({ optimize: false, enableObjectSlots: false }),
     dts({ insertTypesEntry: true }),
     // vuetify({
     //   autoImport: true,
@@ -81,6 +81,7 @@ export default defineConfig({
       vueTemplate: true,
     }),
     Components({
+      include: [/\.vue$/, /\.vue\?vue/, /\.[jt]sx$/],
       dts: 'src/components.d.ts',
     }),
   ],

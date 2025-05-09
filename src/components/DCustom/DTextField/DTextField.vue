@@ -199,8 +199,8 @@
       <!-- Background and outline elements -->
       <div v-if="variant === 'filled'" class="d-text-field__background"></div>
       <fieldset v-if="variant === 'outlined'" aria-hidden="true" class="d-text-field__outline">
-        <legend class="d-text-field__outline-legend">
-          <span v-if="label && (!!inputValue || focused)">{{ label }}</span>
+        <legend class="d-text-field__outline-legend" v-if="label && (!!inputValue || focused)">
+          <span>{{ label }}</span>
         </legend>
       </fieldset>
     </div>

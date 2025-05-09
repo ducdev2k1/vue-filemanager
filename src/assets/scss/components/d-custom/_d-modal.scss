@@ -145,12 +145,6 @@ $overlay-bg: rgba(0, 0, 0, 0.5);
   * {
     color: var(--color-text);
   }
-  &-header {
-    h3 {
-      color: var(--color-title);
-      font-weight: 600;
-    }
-  }
 
   &-overlay {
     position: fixed;
@@ -192,8 +186,13 @@ $overlay-bg: rgba(0, 0, 0, 0.5);
   }
   &-header {
     @apply flex items-center justify-between gap-2 p-4 rounded-t-[20px];
+    border-bottom: 1px solid var(--color-border);
     * {
       font-size: 1.25rem;
+    }
+    h3 {
+      color: var(--color-title);
+      font-weight: 600;
     }
   }
   &-content {
@@ -203,7 +202,7 @@ $overlay-bg: rgba(0, 0, 0, 0.5);
   }
   &-footer {
     @apply flex items-center justify-end gap-2 p-4  rounded-b-[20px];
-    border: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-border);
   }
   .d-card {
     background: transparent;

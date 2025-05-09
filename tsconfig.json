@@ -4,6 +4,7 @@
     "declaration": true,
     "jsx": "preserve",
     "jsxFactory": "h",
+    "jsxImportSource": "vue",
     "jsxFragmentFactory": "Fragment",
     "lib": ["DOM", "ESNext"],
     "baseUrl": ".",

@@ -1,7 +1,6 @@
 .d-table-virtual {
   background: var(--color-app-content);
   height: calc(100% - 46px) !important;
-  border: 1px solid var(--color-border);
   &_wrapper {
     display: inline;
     @apply relative;

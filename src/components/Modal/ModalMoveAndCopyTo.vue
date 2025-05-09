@@ -19,7 +19,7 @@
     paste?: (data: ITreeFolder) => void;
   }
 
-  const emit = defineEmits(['close']);
+  const emit = defineEmits(['close', 'createNew', 'submit']);
 
   const props = withDefaults(defineProps<IProps>(), {
     typeModal: EnumModalFM.copyTo,
@@ -30,6 +30,7 @@
   const isLoading = ref(false);
   const isLoadingBtn = ref(false);
   const pathSelected = ref([] as string[]);
+  const searchFolder = ref('');
 
   // Computed
   const typeModal = computed(() => props?.typeModal as EnumModalFM);
@@ -70,42 +71,54 @@
       </h3>
     </template>
     <template #content>
-      <DBtnIcon :icon="MdiWebfont.home" @click="pathSelected = []" />
+      <div class="c-modal-move-and-copy_header">
+        <DBtn :border="true" :icon="MdiWebfont['home-outline']" @click="pathSelected = []" />
+        <DTextField v-model="searchFolder" :placeholder="t('locale.search')" />
+      </div>
+
       <div v-if="isLoading" class="h-[200px] flex items-center justify-center">
         <CircularLoader :text="t('$vuetify.loading')" />
       </div>
       <d-treeview
         v-else
         v-bind="$attrs"
+        :item-props="customItemProps"
         :model-value="pathSelected"
+        :items="dataTreeFolder"
+        :load-children="actionLoadChildrenFolder"
+        :search="searchFolder"
         @update:activated="(value: string[]) => handleItemClick(value as string[])"
         class="c-treeview-folder"
         active-class="active"
         density="compact"
-        :items="dataTreeFolder"
-        :load-children="actionLoadChildrenFolder"
         max-height="600"
         min-height="240"
         activatable
-        :item-props="customItemProps"
         item-title="name"
         item-value="path">
         <template #prepend="{ isOpen, item }">
           <span>
-            {{ isOpen ? '📂' : '📁' }}
+            <DIcon :icon="MdiWebfont[isOpen ? 'folder-open-outline' : 'folder-outline']" size="22" />
           </span>
         </template>
       </d-treeview>
     </template>
     <template #actions>
-      <DBtn class="d-btn-cancel" :title="t('locale.cancel')" :icon="MdiWebfont['close']" @click="() => emit('close')" />
       <DBtn
-        class="d-btn-primary"
-        :title="t('locale.paste')"
-        :icon="MdiWebfont['content-paste']"
-        :loading="isLoadingBtn"
-        :disabled="isDisableBtn"
-        @click="handleCopyOrMove" />
+        :border="true"
+        :title="t('locale.create_new')"
+        :icon="MdiWebfont['folder-plus-outline']"
+        @click="emit('createNew')" />
+      <div class="c-modal-move-and-copy_actions">
+        <DBtn cancel :title="t('locale.cancel')" :icon="MdiWebfont['close']" @click="() => emit('close')" />
+        <DBtn
+          class="d-btn-primary"
+          :title="t('locale.paste')"
+          :icon="MdiWebfont['content-paste']"
+          :loading="isLoadingBtn"
+          :disabled="isDisableBtn"
+          @click="handleCopyOrMove" />
+      </div>
     </template>
   </Modal>
 </template>

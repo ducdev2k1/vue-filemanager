@@ -15,9 +15,7 @@ $indent-padding: 8px;
   &-item {
     border-radius: 4px;
     cursor: pointer;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-left: 16px;
+    padding: 0 16px;
     &-content {
       @apply flex items-center gap-2 px-1;
       border-radius: var(--border-radius);
@@ -38,6 +36,11 @@ $indent-padding: 8px;
         min-width: 20px;
         height: 20px;
         border-radius: 50%;
+      }
+      .d-icon.mdi {
+        &::before {
+          height: 22px;
+        }
       }
     }
   }

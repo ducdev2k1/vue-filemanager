@@ -10,6 +10,9 @@ $d-card-spinner: #1976d2;
   overflow: hidden;
   transition: all 0.2s ease;
   position: relative;
+  box-shadow:
+    rgba(67, 71, 85, 0.27) 0px 0px 0.25em,
+    rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   &--loading {
     position: absolute;
     top: 0;

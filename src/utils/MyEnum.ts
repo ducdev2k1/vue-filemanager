@@ -3,6 +3,11 @@ export enum MyEnum {
   en = 'en',
 }
 
+export enum EnumTheme {
+  light = 'light',
+  dark = 'dark',
+}
+
 export enum EnumEmpty {
   no_data = 'no_data',
   error = 'error',

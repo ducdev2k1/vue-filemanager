@@ -42,13 +42,7 @@
 </script>
 
 <template>
-  <DModal
-    class="c-dialog"
-    v-model="dialogModel"
-    v-bind="$attrs"
-    :maxWidth="maxWidth"
-    :persistent="persistent"
-    @close="closeModal">
+  <DModal v-model="dialogModel" v-bind="$attrs" :maxWidth="maxWidth" :persistent="persistent" @close="closeModal">
     <template #header v-if="!hiddenHeader">
       <h3 class="text-three-dots">
         <slot name="title" />

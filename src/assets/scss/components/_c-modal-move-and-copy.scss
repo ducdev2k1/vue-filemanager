@@ -1,0 +1,12 @@
+.c-modal-move-and-copy {
+  .d-modal-footer {
+    @apply justify-between;
+  }
+  &_header {
+    @apply flex items-center gap-4 justify-between;
+    padding: 0 16px 16px 16px;
+  }
+  &_actions {
+    @apply flex items-center justify-end gap-2;
+  }
+}
