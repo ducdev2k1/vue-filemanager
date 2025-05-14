@@ -1,0 +1,11 @@
+.c-modal-rename {
+  &_content-text {
+    @apply mt-2;
+    > p {
+      font-size: 14px;
+      span {
+        color: var(--color-primary);
+      }
+    }
+  }
+}

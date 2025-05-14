@@ -71,13 +71,22 @@
               <span class="text-place">{{ type }}</span>
             </template>
           </DTextFieldAddon>
-          <div class="c-modal-rename_content-text">
-            <p>
-              {{ t('locale.name') }}:
+          <div class="c-modal-rename_content-text" v-if="oldName.split('.')[0] !== name.trim()">
+            <p class="old-name">
+              {{
+                t('locale.old_data_name', {
+                  data: t(isFolder ? 'locale.folder' : 'locale.file').toLowerCase(),
+                })
+              }}:
               <span>{{ oldName }}</span>
             </p>
-            <p>
-              <span>{{ name }}</span>
+            <p v-if="name.trim().length > 0" class="new-name">
+              {{
+                t('locale.new_data_name', {
+                  data: t(isFolder ? 'locale.folder' : 'locale.file').toLowerCase(),
+                })
+              }}:
+              <span>{{ type.length > 0 ? `${name.trim()}.${type}` : name.trim() }}</span>
             </p>
           </div>
         </div>

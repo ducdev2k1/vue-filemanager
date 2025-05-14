@@ -3,7 +3,9 @@
   import { EnumModalFM, EnumTypeConfirm } from '@/utils/MyEnum';
   import { DemoActionFM } from './data/DemoActionFm';
   import { IFileManager } from './interfaces/IFileManager';
+  import { useFileManagerStore } from './stores';
 
+  const fileManagerStore = useFileManagerStore();
   const selectedItems = ref<IFileManager[]>([]);
   const selectedOneItem = ref({} as IFileManager);
   const listBreadcrumb = ref<IFileManager[]>([]);
@@ -13,6 +15,7 @@
   const showModalConfirmDelete = ref(false);
   const showModalRename = ref(false);
   const showModalDetail = ref(false);
+  const isModalCreate = computed(() => fileManagerStore.isModalCreate);
 
   const getThumbnailIcon = (item: any) => {
     console.log('item :>> ', item);
@@ -112,6 +115,11 @@
       :double-click-row="handleDoubleClickRow"
       @scroll="handleScroll"
       @refresh="handleRefresh" />
+
+    <ModalCreateFolderOrFile
+      v-if="isModalCreate"
+      :update-model="isModalCreate"
+      @close="fileManagerStore.toggleModalCreate()" />
 
     <ModalRename
       v-if="showModalRename"

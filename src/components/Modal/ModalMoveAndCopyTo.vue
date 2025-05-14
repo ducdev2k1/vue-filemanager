@@ -112,7 +112,8 @@
       <div class="c-modal-move-and-copy_actions">
         <DBtn cancel :title="t('locale.cancel')" :icon="MdiWebfont['close']" @click="() => emit('close')" />
         <DBtn
-          class="d-btn-primary"
+          type="submit"
+          primary
           :title="t('locale.paste')"
           :icon="MdiWebfont['content-paste']"
           :loading="isLoadingBtn"

@@ -16,6 +16,11 @@
     disabled?: boolean;
     border?: boolean;
     cancel?: boolean;
+    submit?: boolean;
+    success?: boolean;
+    primary?: boolean;
+    danger?: boolean;
+    [key: string]: any;
   }
 
   const props = withDefaults(defineProps<IProps>(), {
@@ -25,7 +30,6 @@
     loadingClass: 'w-4 h-4',
     locationTooltip: EnumLocation.top,
     disabled: false,
-    border: false,
   });
 
   const title = computed(() => props?.title as string);
@@ -109,6 +113,10 @@
       'gap-1': title?.length > 0,
       'd-btn--border': border,
       'd-btn--cancel': cancel,
+      'd-btn--success': success,
+      'd-btn--submit': submit,
+      'd-btn--primary': primary,
+      'd-btn--danger': danger,
     }"
     v-bind="$attrs"
     :disabled="loading || disabled">

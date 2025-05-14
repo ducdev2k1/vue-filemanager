@@ -167,7 +167,8 @@
         <template v-else>
           <DBtn cancel :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
           <DBtn
-            :class="[typeConfirm === EnumTypeConfirm.delete ? 'd-btn-danger' : 'd-btn-submit']"
+            :danger="typeConfirm === EnumTypeConfirm.delete"
+            :primary="typeConfirm !== EnumTypeConfirm.delete"
             :title="textBtnSubmit || titleButtonSubmit"
             :icon="
               MdiWebfont[

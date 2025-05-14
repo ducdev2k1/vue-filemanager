@@ -1,8 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <Modal >
-    </Modal>
+  <Modal class="c-modal-create"></Modal>
 </template>
-
-<style scoped></style>
