@@ -4,8 +4,6 @@
   import { t } from '@/plugins/i18n';
   import { EnumTypeConfirm } from '@/utils/MyEnum';
   import { getThumbnailIcon } from '../FileManager/partial/HelperFunctionFileManager';
-  // import { FileManagerStore } from '@/stores/user/file-manager-store';
-  // import { EnumTypeConfirm } from '@/utils/my-enum';
 
   defineOptions({
     inheritAttrs: false,
@@ -104,89 +102,86 @@
 <template>
   <Modal v-bind="$attrs" class="c-modal-confirm" @close="emits('close')">
     <template #title>
-      <template v-if="!$slots.title">
-        <template v-if="typeConfirm == EnumTypeConfirm.delete">
-          {{ permanently ? t('locale.permanently_delete') : t('locale.trash') }}
+      <slot name="title">
+        <template v-if="!$slots.title">
+          <template v-if="typeConfirm == EnumTypeConfirm.delete">
+            {{ permanently ? t('locale.permanently_delete') : t('locale.trash') }}
+          </template>
+          <h3 v-else class="c-modal-confirm_title">{{ title || t(titleModal) }}</h3>
         </template>
-        <h3 v-else class="c-modal-confirm_title">{{ title || t(titleModal) }}</h3>
-      </template>
-      <template v-else>
-        <slot name="title" />
-      </template>
+      </slot>
     </template>
 
     <template #content>
       <div>
-        <template v-if="!$slots.description">
-          <template v-if="typeConfirm !== EnumTypeConfirm.delete">
-            <div class="flex items-start gap-4">
-              <div class="c-modal-confirm_content">
-                <p class="desc whitespace-pre-wrap">{{ descriptionModal }}</p>
-              </div>
-            </div>
-          </template>
-          <template v-else>
-            <div class="c-modal-confirm_delete">
-              <template v-if="selectedItems.length > 0">
-                <div class="c-modal-confirm_delete-content">
-                  <d-alert-message
-                    type="error"
-                    :text="permanently ? t('locale.permanently_delete_content') : t('locale.delete_object_and_share')"
-                    :btn-close="false" />
-                  <d-list class="mt-3">
-                    <d-list-item v-for="(file, index) in visibleFiles" :key="index" :title="file.name">
-                      <template #prepend>
-                        <d-icon :icon="getThumbnailIcon(file)" />
-                      </template>
-                    </d-list-item>
-                    <d-list-item
-                      v-if="hasRemainingFiles"
-                      :title="`...${t('locale.data_remaining_file', { data: countRemainingFile })}`" />
-                  </d-list>
+        <slot name="description">
+          <template v-if="!$slots.description">
+            <template v-if="typeConfirm !== EnumTypeConfirm.delete">
+              <div class="flex items-start gap-4">
+                <div class="c-modal-confirm_content">
+                  <p class="desc whitespace-pre-wrap">{{ descriptionModal }}</p>
                 </div>
-              </template>
-            </div>
+              </div>
+            </template>
+            <template v-else>
+              <div class="c-modal-confirm_delete">
+                <template v-if="selectedItems.length > 0">
+                  <div class="c-modal-confirm_delete-content">
+                    <d-alert-message
+                      type="error"
+                      :text="permanently ? t('locale.permanently_delete_content') : t('locale.delete_object_and_share')"
+                      :btn-close="false" />
+                    <d-list class="mt-3">
+                      <d-list-item v-for="(file, index) in visibleFiles" :key="index" :title="file.name">
+                        <template #prepend>
+                          <d-icon :icon="getThumbnailIcon(file)" />
+                        </template>
+                      </d-list-item>
+                      <d-list-item
+                        v-if="hasRemainingFiles"
+                        :title="`...${t('locale.data_remaining_file', { data: countRemainingFile })}`" />
+                    </d-list>
+                  </div>
+                </template>
+              </div>
+            </template>
           </template>
-        </template>
-        <template v-else>
-          <slot name="description" />
-        </template>
+        </slot>
       </div>
     </template>
     <template #actions>
-      <template v-if="!$slots.actions">
-        <template v-if="typeConfirm === EnumTypeConfirm.cancel">
-          <DBtn
-            class="d-btn-primary mr-4"
-            :title="t('locale.data_resume', { data: t('locale.upload_custom').toLowerCase() })"
-            :icon-mdi="MdiWebfont['cloud-upload-outline']"
-            @click="emits('close')" />
+      <slot name="actions">
+        <template v-if="!$slots.actions">
+          <template v-if="typeConfirm === EnumTypeConfirm.cancel">
+            <DBtn
+              class="d-btn-primary mr-4"
+              :title="t('locale.data_resume', { data: t('locale.upload_custom').toLowerCase() })"
+              :icon-mdi="MdiWebfont['cloud-upload-outline']"
+              @click="emits('close')" />
 
-          <DBtn class="d-btn-danger" :title="t('locale.cancel_upload')" icon="X" @click="emits('submit')" />
+            <DBtn class="d-btn-danger" :title="t('locale.cancel_upload')" icon="X" @click="emits('submit')" />
+          </template>
+          <template v-else>
+            <DBtn cancel :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
+            <DBtn
+              :danger="typeConfirm === EnumTypeConfirm.delete"
+              :primary="typeConfirm !== EnumTypeConfirm.delete"
+              :title="textBtnSubmit || titleButtonSubmit"
+              :icon="
+                MdiWebfont[
+                  typeConfirm === EnumTypeConfirm.delete
+                    ? permanently
+                      ? 'delete-forever-outline'
+                      : 'delete'
+                    : 'send-variant-outline'
+                ]
+              "
+              :loading="loading"
+              :disabled="loading"
+              @click="emits('submit')" />
+          </template>
         </template>
-        <template v-else>
-          <DBtn cancel :title="t('locale.cancel')" :icon="MdiWebfont.close" @click="emits('close')" />
-          <DBtn
-            :danger="typeConfirm === EnumTypeConfirm.delete"
-            :primary="typeConfirm !== EnumTypeConfirm.delete"
-            :title="textBtnSubmit || titleButtonSubmit"
-            :icon="
-              MdiWebfont[
-                typeConfirm === EnumTypeConfirm.delete
-                  ? permanently
-                    ? 'delete-forever-outline'
-                    : 'delete'
-                  : 'send-variant-outline'
-              ]
-            "
-            :loading="loading"
-            :disabled="loading"
-            @click="emits('submit')" />
-        </template>
-      </template>
-      <template v-else>
-        <slot name="actions" />
-      </template>
+      </slot>
     </template>
   </Modal>
 </template>

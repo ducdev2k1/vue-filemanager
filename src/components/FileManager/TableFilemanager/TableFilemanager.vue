@@ -42,7 +42,7 @@
 
   const tableRef = ref<HTMLElement | null>(null);
   const tableBodyRef = ref<HTMLElement | null>(null);
-  const rowHeight = computed(() => props.itemHeight || 48);
+  const rowHeight = computed(() => props.itemHeight || 46);
   const loading = computed(() => props.loading || false);
   const headerTable = computed(() => props.headerTable);
   const dataTable = computed(() => props.dataTable);
@@ -76,7 +76,7 @@
     stopSelection,
     handleScroll: originalHandleScroll,
     handleClearSelected,
-  } = useTableFilemanager(dataTable, emitFunctions, propsFunctions);
+  } = useTableFilemanager(dataTable, emitFunctions, propsFunctions, rowHeight.value);
 
   const updateVisibleItems = () => {
     if (!tableBodyRef.value) return;

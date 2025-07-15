@@ -15,7 +15,12 @@ interface IProps {
   updateSelectedOne: (data: IFileManager) => void;
 }
 
-export const useTableFilemanager = (dataTable: ComputedRef<IFileManager[]>, emits: IEmitFunctions, props: IProps) => {
+export const useTableFilemanager = (
+  dataTable: ComputedRef<IFileManager[]>,
+  emits: IEmitFunctions,
+  props: IProps,
+  rowHeightCustom?: number,
+) => {
   const { width } = useWindowSize();
 
   // Refs
@@ -34,7 +39,7 @@ export const useTableFilemanager = (dataTable: ComputedRef<IFileManager[]>, emit
   const wrapperRef = ref<HTMLElement | null>(null);
 
   // For custom virtual scroller
-  const rowHeight = ref(48); // Height of each row in pixels
+  const rowHeight = ref(rowHeightCustom ?? 46); // Height of each row in pixels
   const startIndexVirtual = ref(0); // Start index for the visible items
   const endIndexVirtual = ref(0); // End index for the visible items
   const visibleItemCount = ref(0); // Number of items visible in the viewport
