@@ -5,6 +5,7 @@
   // import { myRoute } from '@/utils/my-route';
   import { MdiWebfont } from '@/components/Icons/mdi-font-icons';
   import { breakPoint } from '@/utils/MyVariables';
+  import { BrokenImageTwoToneIcon } from '@ducdev2k1/vue-material-icons';
   import { useWindowSize } from '@vueuse/core';
 
   interface IProps {
@@ -40,16 +41,7 @@
   <div class="c-file-manager_name-file">
     <div class="c-file-manager_name-file_left">
       <i v-if="!isImage" style="font-size: 32px" :class="iconThumnail" />
-      <img
-        v-else
-        class="object-contain"
-        :src="iconThumnail"
-        :alt="dataFile.type"
-        width="32"
-        height="32"
-        max-width="32"
-        max-height="32"
-        loading="lazy" />
+      <BrokenImageTwoToneIcon v-else size="32" loading="lazy" />
       <!-- <IconTag :color="formatGradient(dataRow.tags)" v-if="dataFile.tags.length > 0 && isDesktopView" /> -->
       <div class="content line-clamp-2">
         <span class="text-three-dots">{{ dataFile.name }}</span>
